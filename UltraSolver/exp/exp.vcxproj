@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{0218E728-4360-48A8-94AF-8EFC0226A22B}</ProjectGuid>
-    <RootNamespace>XModel</RootNamespace>
+    <ProjectGuid>{208C59B6-EC66-496C-9468-7D300980293B}</ProjectGuid>
+    <RootNamespace>exp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -39,7 +39,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -76,7 +76,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,7 +115,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,38 +123,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="HModel.cpp" />
-    <ClCompile Include="UTF8String.cc" />
-    <ClCompile Include="XCSP3Code.cc" />
-    <ClCompile Include="XCSP3CoreParser.cc" />
-    <ClCompile Include="XCSP3Manager.cc" />
-    <ClCompile Include="XCSP3Tree.cc" />
-    <ClCompile Include="XCSP3TreeNode.cc" />
-    <ClCompile Include="XMLParser.cc" />
-    <ClCompile Include="XMLParserTags.cc" />
-    <ClCompile Include="XModel.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\include\AttributeList.h" />
-    <ClInclude Include="..\include\BMFileParser.h" />
-    <ClInclude Include="..\include\HModel.h" />
-    <ClInclude Include="..\include\Timer.h" />
-    <ClInclude Include="..\include\UTF8String.h" />
-    <ClInclude Include="..\include\XCSP3Constants.h" />
-    <ClInclude Include="..\include\XCSP3Constraint.h" />
-    <ClInclude Include="..\include\XCSP3CoreCallbacks.h" />
-    <ClInclude Include="..\include\XCSP3CoreParser.h" />
-    <ClInclude Include="..\include\XCSP3Domain.h" />
-    <ClInclude Include="..\include\XCSP3Manager.h" />
-    <ClInclude Include="..\include\XCSP3Objective.h" />
-    <ClInclude Include="..\include\XCSP3PrintCallbacks.h" />
-    <ClInclude Include="..\include\XCSP3Tree.h" />
-    <ClInclude Include="..\include\XCSP3TreeNode.h" />
-    <ClInclude Include="..\include\XCSP3utils.h" />
-    <ClInclude Include="..\include\XCSP3Variable.h" />
-    <ClInclude Include="..\include\XMLParser.h" />
-    <ClInclude Include="..\include\XModel.h" />
-    <ClInclude Include="..\include\XReader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
