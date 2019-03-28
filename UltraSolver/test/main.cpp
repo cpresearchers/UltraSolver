@@ -63,9 +63,8 @@ int main(int argc, char** argv) {
 	get_files(root_path, files);
 	//排序文件路径,自带可用,很棒!
 	sort(files.begin(), files.end());
-
+	
 	for (auto& f : files) {
 		cout << f << endl;
 	}
-
 }

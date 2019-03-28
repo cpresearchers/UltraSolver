@@ -2,6 +2,7 @@
 #include "typedef.h"
 #include <vector>
 #include "Propagator.h"
+#include "HModel.h"
 using namespace std;
 namespace cudacp
 {
@@ -9,7 +10,7 @@ namespace cudacp
 	{
 	public:
 		// 各时间戳
-		u64 global_stamp;
+		u64 global_stamp = 0;
 		vector<u64> tab_stamp;
 		vector<u64> var_stamp;
 		// 搜索时间
@@ -28,7 +29,13 @@ namespace cudacp
 		// 约束传播次数
 		u64 c_sum = 0;
 
-		vector<vector<Propagator*>> subscription;
+		vector<vector<Propagator*>> subscription_int;
+
+		void Initial(HModel& m)
+		{
+			var_stamp.resize(m.vars.size(), 0);
+			tab_stamp.resize(m.tabs.size(), 0);
+		}
 	};
 
 }

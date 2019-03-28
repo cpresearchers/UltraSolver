@@ -27,17 +27,22 @@
     <ClInclude Include="AssignedStack.h" />
     <ClInclude Include="BitSet.h" />
     <ClInclude Include="Propagator.h" />
-    <ClInclude Include="PVar.h" />
+    <ClInclude Include="RSparseBitSet.h" />
     <ClInclude Include="SearchHelper.h" />
     <ClInclude Include="Solver.h" />
     <ClInclude Include="SparseSet.h" />
+    <ClInclude Include="SparseSetVar.h" />
+    <ClInclude Include="TableCT.h" />
     <ClInclude Include="Val.h" />
     <ClInclude Include="Var.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp" />
+    <ClCompile Include="RSparseBitSet.cpp" />
     <ClCompile Include="SearchHelper.cpp" />
     <ClCompile Include="SparseSet.cpp" />
+    <ClCompile Include="SparseSetVar.cpp" />
+    <ClCompile Include="TableCT.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
