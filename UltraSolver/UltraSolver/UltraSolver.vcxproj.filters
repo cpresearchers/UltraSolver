@@ -14,4 +14,44 @@
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SearchHelper.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Propagator.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="AssignedStack.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PVar.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="BitSet.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="SparseSet.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Var.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Val.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Solver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SearchHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="BitSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SparseSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

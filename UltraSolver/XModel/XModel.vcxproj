@@ -141,6 +141,7 @@
     <ClInclude Include="..\include\BMFileParser.h" />
     <ClInclude Include="..\include\HModel.h" />
     <ClInclude Include="..\include\Timer.h" />
+    <ClInclude Include="..\include\typedef.h" />
     <ClInclude Include="..\include\UTF8String.h" />
     <ClInclude Include="..\include\XCSP3Constants.h" />
     <ClInclude Include="..\include\XCSP3Constraint.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="..\include\XMLParser.h" />
     <ClInclude Include="..\include\XModel.h" />
     <ClInclude Include="..\include\XReader.h" />
+    <ClInclude Include="Solver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
