@@ -51,6 +51,9 @@
     <ClInclude Include="CoarseSolver.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="CoarseQueue.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SearchHelper.cpp">

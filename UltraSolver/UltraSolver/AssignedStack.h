@@ -18,7 +18,7 @@ public:
 	{
 		++index_;
 		table_[index_] = va;
-		in_stack_(va.v->id) = va.a;
+		in_stack_[va.v->id()] = va.a;
 	}
 
 	T pop()
@@ -30,9 +30,9 @@ public:
 		}
 
 		T x = table_[index_];
-		table_[index_] = nullptr;
+		//table_[index_] = nullptr;
 		--index_;
-		--in_stack_[x.v->id];
+		in_stack_[x.v->id()] = -1;
 		return x;
 	}
 
