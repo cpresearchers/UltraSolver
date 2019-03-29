@@ -45,7 +45,7 @@
     <ClInclude Include="TableCT.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="RSparseBitSet.h">
+    <ClInclude Include="RSBitSet.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

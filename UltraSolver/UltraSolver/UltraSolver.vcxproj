@@ -27,7 +27,7 @@
     <ClInclude Include="AssignedStack.h" />
     <ClInclude Include="BitSet.h" />
     <ClInclude Include="Propagator.h" />
-    <ClInclude Include="RSparseBitSet.h" />
+    <ClInclude Include="RSBitSet.h" />
     <ClInclude Include="SearchHelper.h" />
     <ClInclude Include="Solver.h" />
     <ClInclude Include="SparseSet.h" />
