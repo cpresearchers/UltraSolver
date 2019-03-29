@@ -38,7 +38,7 @@ public:
 
 	bool full() const
 	{
-		return (index_ + 1) == num_vars;
+		return (index_ + 1) == num_vars_;
 	}
 
 	bool empty() const

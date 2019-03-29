@@ -143,7 +143,7 @@ namespace cudacp
 
 		virtual bool CheckConsistencyAfterRefutation(vector<Var*>& x_evt) = 0;
 
-	private:
+	protected:
 		string& propagator_type_;
 		string& var_type_;
 		string& heu_type_;

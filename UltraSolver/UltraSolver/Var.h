@@ -24,7 +24,8 @@ namespace cudacp
 		virtual int BackLevel() = 0;
 		virtual int Size() = 0;
 		virtual void Bind(const int a) = 0;
-		bool IsBind() const { return bind_level != -1; };
+		bool IsBind() const { return bind_level != Constants::kINTMAX; };
+		bool IsBindOrLastPast() const { return bind_level < Constants::kINTMAX; };
 		virtual void Remove(const int a) = 0;
 		virtual bool IsEmpty() = 0;
 		virtual void Restrict() = 0;
@@ -45,7 +46,7 @@ namespace cudacp
 		vector<int> vals_;
 		int level_ = 0;
 		int capacity_ = 0;
-		int bind_level = -1;
+		int bind_level = Constants::kINTMAX;
 
 	};
 

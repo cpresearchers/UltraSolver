@@ -26,6 +26,7 @@
   <ItemGroup>
     <ClInclude Include="AssignedStack.h" />
     <ClInclude Include="BitSet.h" />
+    <ClInclude Include="CoarseSolver.h" />
     <ClInclude Include="Propagator.h" />
     <ClInclude Include="RSBitSet.h" />
     <ClInclude Include="SearchHelper.h" />
@@ -38,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp" />
+    <ClCompile Include="CoarseSolver.cpp" />
     <ClCompile Include="RSparseBitSet.cpp" />
     <ClCompile Include="SearchHelper.cpp" />
     <ClCompile Include="SparseSet.cpp" />
