@@ -143,6 +143,22 @@ namespace cudacp
 
 		virtual bool CheckConsistencyAfterRefutation(vector<Var*>& x_evt) = 0;
 
+		~Solver() {
+			for (size_t i = 0; i < num_vars; i++)
+			{
+				delete vars[i];
+			}
+
+			vars.clear();
+
+			for (size_t i = 0; i < num_tabs; i++)
+			{
+				delete tabs[i];
+			}
+
+			tabs.clear();
+		}
+
 	protected:
 		string& propagator_type_;
 		string& var_type_;

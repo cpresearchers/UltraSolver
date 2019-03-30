@@ -29,7 +29,7 @@ namespace cudacp
 		// 约束传播次数
 		u64 c_sum = 0;
 
-		vector<vector<Propagator*>> subscription_int;
+		vector<vector<Propagator*>> subscription;
 
 		void Initial(HModel& m)
 		{

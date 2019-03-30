@@ -6,30 +6,31 @@ namespace cudacp {
 	class CoarseQueue
 	{
 	public:
-		CoarseQueue(const int num_vars) :max_size_(num_vars + 1) {
+		CoarseQueue(const int num_vars) :
+			max_size_(num_vars + 1) {
 			table_.resize(max_size_);
 			in_stack_.resize(max_size_, false);
 		};
 
-		Initial(const int num_vars) {
+		void Initial(const int num_vars) {
 			max_size_ = num_vars + 1;
 			table_.resize(max_size_);
 			in_stack_.resize(max_size_, false);
 		}
 
-		~CoarseQueue();
+		~CoarseQueue() {};
 
 		bool IsFull() {
 			return front_ == (rear_ + 1) % max_size_;
 		}
 
 		void push(T v) {
-			if (in_stack_(v->id()))
+			if (in_stack_[v->id()])
 				return;
 			table_[rear_] = v;
-			rear_ = [rear_ + 1] % max_size_;
+			rear_ = (rear_ + 1) % max_size_;
 			in_stack_[v->id()] = true;
-			++size;
+			++size_;
 		}
 
 		T pop() {
@@ -45,6 +46,10 @@ namespace cudacp {
 			int rear_ = 0;
 			int size_ = 0;
 			in_stack_.assign(max_size_, false);
+		}
+
+		bool IsEmpty() {
+			return front_ == rear_;
 		}
 
 		int size() {

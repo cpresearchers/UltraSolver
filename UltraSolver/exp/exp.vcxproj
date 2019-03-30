@@ -78,7 +78,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)UltraSolver;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +133,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UltraSolver\UltraSolver.vcxproj">
+      <Project>{b33408b4-bf5a-4115-8bb7-d6022cf952c1}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\XModel\XModel.vcxproj">
       <Project>{0218e728-4360-48a8-94af-8efc0226a22b}</Project>
     </ProjectReference>

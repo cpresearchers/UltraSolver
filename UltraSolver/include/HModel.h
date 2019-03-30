@@ -124,13 +124,13 @@ namespace cudacp {
 
 		int AddTabAsPrevious(HTab* t, vector<string>& scp);
 
-		int max_domain_size() const { return mds_; }
+		inline int max_domain_size() const { return mds_; }
 
-		int max_arity() const { return mas_; }
+		inline int max_arity() const { return mas_; }
 
 		void show();
 
-		bool is_positive() const;
+		inline bool is_positive() const;
 
 		//int regist(const string& exp_name, function<int(vector<int> &)>);
 

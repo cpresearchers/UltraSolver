@@ -15,7 +15,7 @@ namespace cudacp
 
 		Var(string& name, const int id, const int num_vars, vector<int>& vals,
 			SearchHelper& helper) :name_(name), id_(id), num_vars_(num_vars), vals_(vals), helper(&helper), capacity_(vals.size()) {};
-		int id() const { return id_; }
+		inline int id() const { return id_; }
 		int capacity() const { return capacity_; }
 		vector<int> last_remove_values;
 		vector<int> valid_values;

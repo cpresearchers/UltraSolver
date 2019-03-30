@@ -6,7 +6,7 @@
 namespace cudacp
 {
 	using namespace std;
-	class SparseSetVar : Var
+	class SparseSetVar : public Var
 	{
 	public:
 		vector<int> dense;

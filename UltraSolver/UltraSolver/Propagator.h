@@ -10,6 +10,7 @@ namespace cudacp
 		virtual ~Propagator() = default;
 		int id;
 		int arity;
+		int bind_count = 0;
 		vector<Var*> scope;
 		//vector<Var*> scope;
 		int level = 0;

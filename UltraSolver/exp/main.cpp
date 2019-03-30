@@ -3,6 +3,7 @@
 #include "HModel.h"
 #include "BMFileParser.h"
 #include "Timer.h"
+#include "CoarseSolver.h"
 using namespace XCSP3Core;
 using namespace cudacp;
 
@@ -18,5 +19,10 @@ int main() {
 	const auto build_time = t.elapsed();
 	cout << build_time << endl;
 	m.show();
+
+	string propagator_name = "CT";
+	string var_name = "SparseSet";
+	string heu_name = "";
+	CoarseSolver ct(m, propagator_name, var_name, heu_name);
 	return 0;
 }

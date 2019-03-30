@@ -4,7 +4,7 @@
 #include "Propagator.h"
 namespace cudacp {
 	using namespace std;
-	class TableCT : Propagator
+	class TableCT : public Propagator
 	{
 	public:
 		SearchHelper* helper;
