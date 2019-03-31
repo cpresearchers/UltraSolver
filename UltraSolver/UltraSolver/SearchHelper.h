@@ -4,7 +4,7 @@
 #include "Propagator.h"
 #include "HModel.h"
 using namespace std;
-namespace cudacp
+namespace cp
 {
 	class SearchHelper
 	{

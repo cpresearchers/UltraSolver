@@ -3,7 +3,7 @@
 #include <string>
 #include <unordered_map>
 using namespace std;
-namespace cudacp {
+namespace cp {
 class XVar {
 	int id;
 	int uid;

@@ -39,7 +39,7 @@
 * see main.cc to show declaration of the parser
 *
 */
-using namespace cudacp;
+using namespace cp;
 namespace XCSP3Core {
 
 	class XCSP3PrintCallbacks : public XCSP3CoreCallbacks {

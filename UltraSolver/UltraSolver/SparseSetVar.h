@@ -3,7 +3,7 @@
 #include <string>
 #include "SearchHelper.h"
 
-namespace cudacp
+namespace cp
 {
 	using namespace std;
 	class SparseSetVar : public Var

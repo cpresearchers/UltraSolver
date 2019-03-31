@@ -5,7 +5,7 @@
 #include "Timer.h"
 #include "CoarseSolver.h"
 using namespace XCSP3Core;
-using namespace cudacp;
+using namespace cp;
 
 const string x_path = "BMPath.xml";
 int main() {

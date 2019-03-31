@@ -5,7 +5,7 @@
 #include "HModel.h"
 #include <utility>
 
-namespace cudacp {
+namespace cp {
 	////////////////////////////////////////////////////////////////////
 	HVar::HVar(const int id, const int uid, string name, const int min_val, const int max_val) :
 		id(id), uid(uid), name(std::move(name)), std_max(max_val - min_val), is_std(min_val == 0) {

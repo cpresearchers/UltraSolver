@@ -1,7 +1,7 @@
 #pragma once
 #include "Var.h"
 
-namespace cudacp
+namespace cp
 {
 	class Val
 	{
@@ -16,5 +16,15 @@ namespace cudacp
 		PVar* v;
 		int a;
 	};
+
+	ostream& operator<<(ostream& os, Val v_a) {
+		os << "(" << v_a.v->id() << ", " << v_a.a << ") ";
+		return os;
+	}
+
+	//ostream& operator<<(ostream& os, PVal v_a) {
+	//	os << "(" << v_a.v->id() << ", " << v_a.a << ") ";
+	//	return os;
+	//}
 
 }

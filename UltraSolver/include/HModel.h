@@ -16,7 +16,7 @@
 #include <climits>
 #include <algorithm>
 
-namespace cudacp {
+namespace cp {
 
 	const int MAX_VALUE = INT_MAX - 4096;
 	const int MAX_OPT = INT_MIN + 4096;

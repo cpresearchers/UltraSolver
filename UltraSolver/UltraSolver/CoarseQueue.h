@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 using namespace std;
-namespace cudacp {
+namespace cp {
 	template<class T>
 	class CoarseQueue
 	{

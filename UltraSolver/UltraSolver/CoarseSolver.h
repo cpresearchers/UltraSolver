@@ -6,7 +6,7 @@
 #include "SparseSetVar.h"
 #include "TableCT.h"
 
-namespace cudacp {
+namespace cp {
 	class CoarseSolver :
 		public Solver
 	{

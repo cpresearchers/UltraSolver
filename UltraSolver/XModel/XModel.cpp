@@ -1,7 +1,7 @@
 #include "XModel.h"
 #include <utility>
 
-namespace cudacp {
+namespace cp {
 
 //XVar::XVar(const int id, string name, const int min_val, const int max_val) :
 //	id(id), name(std::move(name)), is_STD(min_val == 0) {
