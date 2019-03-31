@@ -15,8 +15,8 @@ namespace cp
 
 		int mark = 0;
 
-		vector<int> last_remove_values;
-		vector<int> valid_values;
+		//vector<int> last_remove_values;
+		//vector<int> valid_values;
 
 		SearchHelper* helper{};
 
@@ -36,8 +36,8 @@ namespace cp
 		int MinValue() override;
 		int MaxValue() override;
 		int NextValue(const int a) override;
-		void GetLastRemoveValues(const int last) override;
-		void GetValidValues() override;
-		void swap(const int i, const int j);
+		void GetLastRemoveValues(const int last, vector<int>& values) override;
+		void GetValidValues(vector<int>& values) override;
+		inline void swap(const int i, const int j);
 	};
 }

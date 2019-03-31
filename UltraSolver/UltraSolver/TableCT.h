@@ -55,7 +55,8 @@ public:
 				changed = true;
 			}
 
-			if (v->IsBindOrLastPast()) {
+			// 未赋值或刚赋值 
+			if (v->NeedFilterDomain()) {
 				Ssup_.push_back(i);
 			}
 		}
@@ -66,23 +67,23 @@ public:
 	bool UpdateTable() {
 		const size_t num_sval = Sval_.size();
 		for (size_t i = 0; i < num_sval; ++i) {
-			int vv = Sval_[i];
+			const int vv = Sval_[i];
 			auto v = scope[vv];
 			curr_table_->ClearMask();
 
 			// !!此处delta重写了一次
 			if ((old_size_[vv] - v->Size()) < v->Size()) {
 				// delta更新
-				v->GetLastRemoveValues(old_size_[vv]);
-				for (auto a : v->last_remove_values) {
+				v->GetLastRemoveValues(old_size_[vv], values_);
+				for (auto a : values_) {
 					curr_table_->AddToMask(supports_[vv][a]);
 				}
 				curr_table_->ReverseMask();
 			}
 			else {
 				// 重头重新
-				v->GetValidValues();
-				for (auto a : v->valid_values) {
+				v->GetValidValues(values_);
+				for (auto a : values_) {
 					curr_table_->AddToMask(supports_[vv][a]);
 				}
 			}
@@ -102,11 +103,11 @@ public:
 		const size_t num_ssup = Ssup_.size();
 		for (size_t i = 0; i < num_ssup; ++i) {
 			bool deleted = false;
-			int vv = Ssup_[i];
+			const int vv = Ssup_[i];
 			auto v = scope[vv];
-			v->GetValidValues();
+			v->GetValidValues(values_);
 
-			for (auto a : v->valid_values) {
+			for (auto a : values_) {
 				int index = residues_[vv][a];
 				if (index == -1 || !curr_table_->CheckValid(index, supports_[vv][a][index])) {
 					index = curr_table_->IntersectIndex(supports_[vv][a]);
@@ -117,7 +118,7 @@ public:
 						deleted = true;
 						//无法找到支持, 删除(v, a)
 						v->Remove(a);
-						cout << "name: " << id << ", delete: " << v->id() << "," << a << endl;
+						cout << "name: " << id << ", delete: " << v->Id() << "," << a << endl;
 					}
 				}
 			}
@@ -140,8 +141,7 @@ public:
 	bool propagate(vector<Var*> & x_evt) override {
 		//L32~L33
 		InitGAC();
-		auto res = UpdateTable();
-		if (!res) {
+		if (!UpdateTable()) {
 			return false;
 		}
 		return FilterDomains(x_evt);
@@ -155,7 +155,7 @@ public:
 	void BackLevel() override {
 		curr_table_->DeleteLevel();
 		level--;
-		for (size_t i = 0; i < arity; i++) {
+		for (auto i = 0; i < arity; ++i) {
 			last_size_[i] = scope[i]->Size();
 			old_size_[i] = last_size_[i];
 		}
@@ -170,6 +170,7 @@ private:
 	vector<int> Sval_;
 	vector<int> last_size_;
 	vector<int> old_size_;
+
 };
 }
 

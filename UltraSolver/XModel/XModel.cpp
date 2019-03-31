@@ -3,8 +3,8 @@
 
 namespace cp {
 
-//XVar::XVar(const int id, string name, const int min_val, const int max_val) :
-//	id(id), name(std::move(name)), is_STD(min_val == 0) {
+//XVar::XVar(const int Id, string name, const int min_val, const int max_val) :
+//	Id(Id), name(std::move(name)), is_STD(min_val == 0) {
 //	int j = 0;
 //	const int size = max_val - min_val + 1;
 //	values.resize(size);

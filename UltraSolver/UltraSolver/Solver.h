@@ -41,7 +41,6 @@ public:
 
 		if (!consistent) {
 			finished = false;
-
 			helper.time = t.elapsed() - start;
 		}
 
@@ -71,12 +70,8 @@ public:
 			if (consistent && I.full()) {
 				helper.time = t.elapsed() - start;
 				I.show();
-				//cout << I << endl;
 				finished = true;
-				//get_solution();
 				return;
-				//++sol_count_;
-				//consistent_ = false;
 			}
 
 			while (!consistent && !I.empty()) {

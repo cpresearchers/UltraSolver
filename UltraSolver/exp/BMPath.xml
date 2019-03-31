@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <BenchMark>
   <BMFiles nbBMFiles = "1">
     <!--<BMFile id ="0">queens-4_ext.xml</BMFile>-->
@@ -9,7 +9,7 @@
     <!--<BMFile id ="0">E:/Projects/benchmarks/xcsp/QueensKnights-m1-s1/QueensKnights-008-05-add.xml</BMFile>-->
     <!--<BMFile id ="0">E:/Projects/benchmarks/xcsp/Random-RB-2-30-15f/rand-2-30-15-306-230f-01.xml</BMFile>-->
     <!-- <BMFile id ="0">/home/leezear/benchmarks/Random/Random-B-2-23-23/rand-2-23-23-253-131-0.xml</BMFile> -->
-    <BMFile id ="0">queen4.xml</BMFile>
+    <BMFile Id ="0">queen4.xml</BMFile>
     <!--<BMFile id ="0">E:/Projects/benchmarks/xcsp/Random-D-t010/rand-2-40-8-753-010-02.xml</BMFile>-->
   </BMFiles>
 </BenchMark>

@@ -15,7 +15,7 @@ public:
 	void push(const T va) {
 		++index_;
 		table_[index_] = va;
-		in_stack_[va.v->id()] = va.a;
+		in_stack_[va.v->Id()] = va.a;
 	}
 
 	T pop() {
@@ -27,7 +27,7 @@ public:
 		T x = table_[index_];
 		//table_[index_] = nullptr;
 		--index_;
-		in_stack_[x.v->id()] = -1;
+		in_stack_[x.v->Id()] = -1;
 		return x;
 	}
 
@@ -50,7 +50,7 @@ public:
 		return in_stack_[i];
 	}
 
-	inline int Size() {
+	inline int Size() const {
 		return index_ + 1;
 	}
 

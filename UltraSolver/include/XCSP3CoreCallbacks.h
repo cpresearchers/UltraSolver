@@ -145,7 +145,7 @@ namespace XCSP3Core {
          * See http://xcsp.org/specifications/arrays
          * Note that for each variable in the array a call is done to one of the functions #buildVariableInteger
          *
-         * @param id the id (name) of the array variable
+         * @param id the Id (name) of the array variable
          */
         virtual void beginVariableArray(string id) {} //beginArray
 
@@ -180,7 +180,7 @@ namespace XCSP3Core {
          * See http://xcsp.org/specifications/groups
          * Note that for each constraint of the group a call is done to the related callback
          *
-         * @param id the id (name) of the group
+         * @param id the Id (name) of the group
          */
         virtual void beginGroup(string id) {}
 
@@ -220,7 +220,7 @@ namespace XCSP3Core {
          * See http://xcsp.org/specifications/slide
          * Note that for each constraint of the block a call is done to the related callback
          *
-         * @param id the id (name) of the slide
+         * @param id the Id (name) of the slide
          * @param circular is the slide circular?
          */
         virtual void beginSlide(string id, bool circular) {}
@@ -271,9 +271,9 @@ namespace XCSP3Core {
          * The callback function related to an integer variable with a range domain
          * See http://xcsp.org/specifications/integers
          *
-         * Example: <var id="bar"> 0..6 </var>
+         * Example: <var Id="bar"> 0..6 </var>
          *
-         * @param id the id (name) of the group
+         * @param id the Id (name) of the group
          * @param minValue the minimum value in the range
          * @param maxValue the maxnimum value in the range
          */
@@ -284,16 +284,16 @@ namespace XCSP3Core {
          * The callback function related to an integer variable with a domain consisting in a sequence of integers
          * See http://xcsp.org/specifications/integers
          *
-         * Example <var id="bar"> 1 3 5 10 </var>
+         * Example <var Id="bar"> 1 3 5 10 </var>
          *
-         * @param id the id (name) of the group
+         * @param id the Id (name) of the group
          * @param values the set of values in the domain
         */
         virtual void buildVariableInteger(string id, vector<int> &values) = 0;
 
         /**
          * All callbacks related to constraints.
-         * Note that the variables related to a constraint are #XVariable instances. A XVariable contains an id and
+         * Note that the variables related to a constraint are #XVariable instances. A XVariable contains an Id and
          * the related domain.
          * (see XCSP3Variable.h)
          *
@@ -339,7 +339,7 @@ namespace XCSP3Core {
          *   <conflicts> (1,2,3,4)(3,1,3,4) </conflicts>
          * </extension>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param tuples the set of tuples in the constraint
          * @param support  support or conflicts?
@@ -361,7 +361,7 @@ namespace XCSP3Core {
          *   <conflicts> 2 6 </conflicts>
          * </extension>
          *
-         * @param id the id (name) of the constraint
+         * @param Id the Id (name) of the constraint
          * @param variable the variable
          * @param tuples the set of tuple (here just set of ints)
          * @param support  support or conflicts?
@@ -378,7 +378,7 @@ namespace XCSP3Core {
          * It is the case when a group of constraint contains an extension constraint.
          * This is useful to save space and share the set of tuples of all constraints.
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param support  support or conflicts?
          * @param hasStar is the tuples contain star values?
@@ -398,7 +398,7 @@ namespace XCSP3Core {
          * And an example is given in samples/testTree.cc
          * In such a case, set intensionUsingString to false and make a callback to the next function
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param expr the expression
          */
         virtual void buildConstraintIntension(string id, string expr) {
@@ -413,7 +413,7 @@ namespace XCSP3Core {
          * Example:
          * <intension> eq(add(x,y),z) </intension>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param tree the canonized form related to the tree
          */
         virtual void buildConstraintIntension(string id, Tree *tree) {
@@ -426,7 +426,7 @@ namespace XCSP3Core {
          * intensional constraint of the form : x +-k op y is recognized.
          * If such a intensional constraint is recognized, a callback to this function is done and not to  #buildConstraintIntension
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param op the order LE, LT...
          * @param x the variable
          * @param k the constant
@@ -443,7 +443,7 @@ namespace XCSP3Core {
          * intensional constraint of the form : x op k  is recognized.
          * If such a intensional constraint is recognized, a callback to this function is done and not to  #buildConstraintIntension
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param op the order LE or GE (EQ and NE are performed using #buildConstrantExtension)
          * @param x the variable
          * @param k the constant
@@ -459,7 +459,7 @@ namespace XCSP3Core {
          * intensional constraint of the form : x in/notin [min max] are recognized
          * If such a intensional constraint is recognized, a callback to this function is done and not to  #buildConstraintIntension
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param x the variable
          * @param in true if x is in this interval
          * @param min the constant
@@ -491,7 +491,7 @@ namespace XCSP3Core {
          * XTransition is an object with 3 fields: from (string), val(int) and to(string)
          * Then, in the first transition of the example from=a, to=a and val=0
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param start the starting node
          * @param final the set of final nodes
@@ -516,7 +516,7 @@ namespace XCSP3Core {
          *   </transitions>
          * </mdd>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param transitions the set of transitions
          */
@@ -538,7 +538,7 @@ namespace XCSP3Core {
          *   x1 x2 x3 x4 x5
          * </allDifferent>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          */
         virtual void buildConstraintAlldifferent(string id, vector<XVariable *> &list) {
@@ -555,7 +555,7 @@ namespace XCSP3Core {
          *   add(q[0],0) add(q[1],1) add(q[2],2) add(q[3],3) add(q[4],4) add(q[5],5) add(q[6],6) add(q[7],7)
          * </allDifferent>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the trees of the constraint
          */
         virtual void buildConstraintAlldifferent(string id, vector<Tree *> &list) {
@@ -573,7 +573,7 @@ namespace XCSP3Core {
          *   <except>0</except>
          * </allDifferent>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param except the set of excepted values
          */
@@ -587,12 +587,12 @@ namespace XCSP3Core {
          * See http://xcsp.org/specifications/alldifferent
          *
          * Example:
-         * <allDifferent id="c1">
+         * <allDifferent Id="c1">
          *    <list> x1 x2 x3 x4 </list>
          *    <list> y1 y2 y3 y4 </list>
          * </allDifferent>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param lists the set of lists (not the scopes, a variable may appear at different place!)
          */
         virtual void buildConstraintAlldifferentList(string id, vector<vector<XVariable *>> &lists) {
@@ -605,7 +605,7 @@ namespace XCSP3Core {
          * See http://xcsp.org/specifications/alldifferent
          *
          * Example:
-         * <allDifferent id="c1">
+         * <allDifferent Id="c1">
          *    <matrix>
          *     (x1,x2,x3,x4,x5)
          *     (y1,y2,y3,y4,y5)
@@ -613,7 +613,7 @@ namespace XCSP3Core {
          *    </matrix>
          * </allDifferent>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param matrix the matrix (not the scopes, a variable may appear at different place!)
          */
         virtual void buildConstraintAlldifferentMatrix(string id, vector<vector<XVariable *>> &matrix) {
@@ -630,7 +630,7 @@ namespace XCSP3Core {
          *  x1 x2 x3 x4 x5
          * </allEqual>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          *
          */
@@ -646,12 +646,12 @@ namespace XCSP3Core {
          * See http://xcsp.org/specifications/nValues
          *
          * Example:
-         * <nValues id="c1">
+         * <nValues Id="c1">
          *   <list> x1 x2 x3 x4 </list>
          *   <condition> (gt,1) </condition>
          * </nValues>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          */
         virtual void buildConstraintNotAllEqual(string id, vector<XVariable *> &list) {
@@ -671,7 +671,7 @@ namespace XCSP3Core {
          *   <operator> lt </operator>
          * </ordered>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param order the order LT, LE...
          */
@@ -692,7 +692,7 @@ namespace XCSP3Core {
          *   <operator> lt </operator>
          * </ordered>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param order the order LT, LE...
          */
@@ -713,7 +713,7 @@ namespace XCSP3Core {
          *   <operator> lt </operator>
          * </ordered>
          *
-         * @param id  the id (name) of the constraint
+         * @param id  the Id (name) of the constraint
          * @param lists the set of lists (not the scopes, a variable may appear at different place!)
          * @param order the order LT, LE...
          */
@@ -737,7 +737,7 @@ namespace XCSP3Core {
         *   <operator> lt </operator>
         * </ordered>
         *
-        * @param id the id (name) of the constraint
+        * @param id the Id (name) of the constraint
         * @param matrix the matrix (not the scopes, a variable may appear at different place!)
         * @param order the order LT, LE...
         */
@@ -763,7 +763,7 @@ namespace XCSP3Core {
         *   <condition> (gt,y) </condition>
         * </sum>
         *
-        * @param id the id (name) of the constraint
+        * @param id the Id (name) of the constraint
         * @param list the scopes of the constraint
         * @param coeffs the coefficients (here int)
         * @param cond the condition (See XCondition object)
@@ -783,7 +783,7 @@ namespace XCSP3Core {
          *   <condition> (gt,y) </condition>
          * </sum>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param cond the condition (See XCondition object)
          */
@@ -803,7 +803,7 @@ namespace XCSP3Core {
          *   <condition> (gt,y) </condition>
          * </sum>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param coeffs the coefficients (here XVariable)
          * @param cond the condition (See XCondition object)
@@ -822,7 +822,7 @@ namespace XCSP3Core {
          *   <condition> (gt,y) </condition>
          * </sum>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the different trees
          * @param cond the condition (See XCondition object)
          */
@@ -841,7 +841,7 @@ namespace XCSP3Core {
          *   <condition> (gt,y) </condition>
          * </sum>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the different trees
          * @param coefs the coefs.
          * @param cond the condition (See XCondition object)
@@ -859,7 +859,7 @@ namespace XCSP3Core {
          *
          *
          * Example:
-         * <count id="c4">
+         * <count Id="c4">
          *   <list> y1 y2 y3 y4 </list>
          *   <values> 0 </values>
          *   <condition> (le,2) </condition>
@@ -868,7 +868,7 @@ namespace XCSP3Core {
          * Here at most 2 variables from y1...y4 can have value 0
          *
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the value
          * @param k the maximum number of variables that can take the value
@@ -886,7 +886,7 @@ namespace XCSP3Core {
          *
          *
          * Example:
-         * <count id="c3">
+         * <count Id="c3">
          *    <list> x1 x2 x3 x4 x5 </list>
          *    <values> 1 </values>
          *    <condition> (ge,3) </condition>
@@ -894,7 +894,7 @@ namespace XCSP3Core {
          *
          * Here at least 3 variables from x1...x5 must have value 1
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the value
          * @param k the minimum number of variables that can take the value
@@ -912,14 +912,14 @@ namespace XCSP3Core {
          *
          *
          * Example:
-         * <count id="c5">
+         * <count Id="c5">
          *    <list> z1 z2 z3  Z4</list>
          *    <values> 0 </values>
          *    <condition> (eq,2) </condition>
          * </count>
          * Here exactly 2 variables from z1...z4 must have value 0
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the value
          * @param k the exact number of variables that can take the value
@@ -937,13 +937,13 @@ namespace XCSP3Core {
          *
          *
          * Example:
-         * <count id="c5">  <!-- exactly -->
+         * <count Id="c5">  <!-- exactly -->
          *    <list> z1 z2 z3  Z4</list>
          *    <values> 0 </values>
          *    <condition> (eq,z5) </condition>
          * </count>
          * Here exactly z5 variables from z1...z4 must have value 0
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the value
          * @param x the exact number of variables that can take the value (here it is a variable)
@@ -961,13 +961,13 @@ namespace XCSP3Core {
          *
          *
          * Example:
-         * <count id="c2">
+         * <count Id="c2">
          *   <list> w1 w2 w3 w4 </list>
          *   <values> 1 5 8 </values>
          *   <condition> (eq,k2) </condition>
          * </count>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the value
          * @param k
@@ -981,13 +981,13 @@ namespace XCSP3Core {
          * The callback function related to a count constraint with integer values
          * See http://xcsp.org/specifications/count
          * Example:
-         * <count id="c1">
+         * <count Id="c1">
          *     <list> v1 v2 v3 v4 </list>
          *     <values> 2 4 </values>
          *     <condition> (ne,k1) </condition>
          * </count>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the set of  values (here set of ints)
          * @param k the  number of variables
@@ -1002,13 +1002,13 @@ namespace XCSP3Core {
          * The callback function related to a count constraint with integer variables
          * See http://xcsp.org/specifications/count
          * Example:
-         * <count id="c1">
+         * <count Id="c1">
          *     <list> v1 v2 v3 v4 </list>
          *     <values> x1 x2 </values>
          *     <condition> (ne,k1) </condition>
          * </count>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the set of  values (here set of variables)
          * @param k the  number of variables
@@ -1023,13 +1023,13 @@ namespace XCSP3Core {
          * The callback function related to a nValues constraint with exception
          * See http://xcsp.org/specifications/nValues
          * Example:
-         * <nValues id="c3">
+         * <nValues Id="c3">
          *   <list> z1 z2 z3 z4 </list>
          *    <except> 0 </except>
          *    <condition> (eq,2) </condition>
          * </nValues>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param except the set of excepted values
          * @param xc the condition (see #XCondition)
@@ -1043,12 +1043,12 @@ namespace XCSP3Core {
          * The callback function related to a nValues constraint with exception
          * See http://xcsp.org/specifications/nValues
          * Example:
-         * <nValues id="c3">
+         * <nValues Id="c3">
          *   <list> z1 z2 z3 z4 </list>
          *   <condition> (eq,2) </condition>
          * </nValues>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param xc the condition (see #XCondition)
          */
@@ -1068,7 +1068,7 @@ namespace XCSP3Core {
          *   <occurs> 1 2 3 </occurs>
          * </cardinality>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param values the set of values (here int)
          * @param occurs the number of occurences (here int)
@@ -1091,7 +1091,7 @@ namespace XCSP3Core {
          *   <occurs> z0 z1 z2 z3 </occurs>
          * </cardinality>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param values the set of values (here int)
          * @param occurs the number of occurences (here variables)
@@ -1114,7 +1114,7 @@ namespace XCSP3Core {
          *   <occurs> 0..1 1..3 2..3 </occurs>
          * </cardinality>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param values the set of values (here int)
          * @param occurs the number of occurences (here intervals)
@@ -1136,7 +1136,7 @@ namespace XCSP3Core {
          *   <occurs> 1 2 3 </occurs>
          * </cardinality>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the list of the constraint (not the scopes...)
          * @param values the set of values (here variable)
          * @param occurs the number of occurences (here int)
@@ -1158,7 +1158,7 @@ namespace XCSP3Core {
          *   <occurs> y1 y2 y3 </occurs>
          * </cardinality>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the list of the constraint (not the scopes)
          * @param values the set of values (here variables)
          * @param occurs the number of occurences (here variables)
@@ -1180,7 +1180,7 @@ namespace XCSP3Core {
          *   <occurs> 1..2 3..5 2..4 </occurs>
          * </cardinality>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the list of the constraint (not the scopes)
          * @param values the set of values (here variables)
          * @param occurs the number of occurences (here intervals)
@@ -1204,7 +1204,7 @@ namespace XCSP3Core {
          *    <condition> (eq,y) </condition>
          * </minimum>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param xc the condition (see #XCondition)
          */
@@ -1225,7 +1225,7 @@ namespace XCSP3Core {
          *    <condition> (eq,3) </condition>
          * </minimum>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param index the index variable
          * @param startIndex 0 or something else ?
@@ -1247,7 +1247,7 @@ namespace XCSP3Core {
          *    <condition> (ge,2) </condition>
          * </maximum>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param xc the condition (see #XCondition)
          */
@@ -1268,7 +1268,7 @@ namespace XCSP3Core {
          *    <condition> (eq,3) </condition>
          * </maximum>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param index the index variable
          * @param startIndex 0 or something else ?
@@ -1290,7 +1290,7 @@ namespace XCSP3Core {
          *    <value> 2 </value>
          * </element>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the value (here an int)
          */
@@ -1309,7 +1309,7 @@ namespace XCSP3Core {
          *    <value> z </value>
          * </element>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param value the value (here a variable)
          */
@@ -1329,7 +1329,7 @@ namespace XCSP3Core {
          *    <value> 2 </value>
          * </element>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the list of the constraint (not necessary the scopes)
          * @param index the index variable
          * @param startIndex 0 or something else ?
@@ -1352,7 +1352,7 @@ namespace XCSP3Core {
          *    <value> z </value>
          * </element>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the list of the constraint (not necessary the scopes)
          * @param index the index variable
          * @param startIndex 0 or something else ?
@@ -1375,7 +1375,7 @@ namespace XCSP3Core {
          *    <value> z </value>
          * </element>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the list of int
          * @param index the index variable
          * @param startIndex 0 or something else ?
@@ -1396,7 +1396,7 @@ namespace XCSP3Core {
          *    <list> z1 z2 z3 z4 z5 </list>
          * </channel>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          */
         virtual void buildConstraintChannel(string id, vector<XVariable *> &list, int startIndex) {
@@ -1419,7 +1419,7 @@ namespace XCSP3Core {
          * If list1.size() == list2.size() then list1[i] = j <=> list2[j] = i
          * If list1.size() <  list2.size() then list1[i] = j  => list2[j] = i
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list1 the first list
          * @param startIndex1 the starting index for list1
          * @param list2 the second list
@@ -1441,7 +1441,7 @@ namespace XCSP3Core {
          * <value> v </value>
          * </channel>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the list of the constraint not necessary the scopes)
          * @param startIndex the starting index for list
          * @param value the vaule
@@ -1467,7 +1467,7 @@ namespace XCSP3Core {
          *   <widths> 1..3 1..3 2..3 2..4 </widths>
          * </stretch>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param values thelist of values
          * @param widths the list of intervals for widths
@@ -1481,7 +1481,7 @@ namespace XCSP3Core {
          * The callback function related to a strectch constraint with values, widths and patterns
          * See http://xcsp.org/specifications/stretch
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param values thelist of values
          * @param widths the list of intervals for widths
@@ -1504,7 +1504,7 @@ namespace XCSP3Core {
          *    <lengths> l1 l2 l3 </lengths>
          * </noOverlap>
          *
-         * @param id  the id (name) of the constraint
+         * @param id  the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here int)
          * @param zeroIgnored are zero ignored?
@@ -1524,7 +1524,7 @@ namespace XCSP3Core {
          *    <lengths> z1 z2 z3 </lengths>
          * </noOverlap>
          *
-         * @param id  the id (name) of the constraint
+         * @param id  the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here variables)
          * @param zeroIgnored are zero ignored?
@@ -1544,7 +1544,7 @@ namespace XCSP3Core {
          *    <lengths> (2,4,1)(4,2,3)(5,1,2)(3,3,2) </lengths>
          * </noOverlap>
          *
-         * @param id  the id (name) of the constraint
+         * @param id  the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here vector of int)
          * @param zeroIgnored are zero ignored?
@@ -1564,7 +1564,7 @@ namespace XCSP3Core {
          *    <lengths> (a,b,c)(d,e,f)(g,h,i)(l,m,n) </lengths>
          * </noOverlap>
          *
-         * @param id  the id (name) of the constraint
+         * @param id  the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here vector of variables)
          * @param zeroIgnored are zero ignored?
@@ -1586,7 +1586,7 @@ namespace XCSP3Core {
          *     <condition> (le,4) </condition>
          * </cumulative>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here ints)
          * @param heights the vector of heights (here ints)
@@ -1609,7 +1609,7 @@ namespace XCSP3Core {
          *     <condition> (le,4) </condition>
          * </cumulative>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here ints)
          * @param heights the vector of heights (here variables)
@@ -1632,7 +1632,7 @@ namespace XCSP3Core {
          *     <condition> (le,4) </condition>
          * </cumulative>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here variables)
          * @param heights the vector of heights (here ints)
@@ -1655,7 +1655,7 @@ namespace XCSP3Core {
          *     <condition> (le,4) </condition>
          * </cumulative>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here variables)
          * @param heights the vector of heights (here variables)
@@ -1680,7 +1680,7 @@ namespace XCSP3Core {
          *     <condition> (le,4) </condition>
          * </cumulative>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here ints)
          * @param heights the vector of heights (here ints)
@@ -1706,7 +1706,7 @@ namespace XCSP3Core {
          *     <condition> (le,4) </condition>
          * </cumulative>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here ints)
          * @param heights the vector of heights (here variables)
@@ -1733,7 +1733,7 @@ namespace XCSP3Core {
          *     <condition> (le,4) </condition>
          * </cumulative>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here variables)
          * @param heights the vector of heights (here ints)
@@ -1760,7 +1760,7 @@ namespace XCSP3Core {
          *     <condition> (le,4) </condition>
          * </cumulative>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param origins the vector of origins
          * @param lengths the vector of lenghts (here variables)
          * @param heights the vector of heights (here variables)
@@ -1788,7 +1788,7 @@ namespace XCSP3Core {
          *   <values> 12 4 30 </values>
          * </instantiation>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param values the value for each variable
          */
@@ -1810,7 +1810,7 @@ namespace XCSP3Core {
          *   <list> x y z </list>
          * </circuit>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param startIndex the start index for the list
          */
@@ -1829,7 +1829,7 @@ namespace XCSP3Core {
          *   <size> 4 </size>
          * </circuit>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the scopes of the constraint
          * @param startIndex the start index for the list
          * @param size the size of the circuit (here an int)
@@ -1849,7 +1849,7 @@ namespace XCSP3Core {
          *   <size> s </size>
          * </circuit>
          *
-         * @param id the id (name) of the constraint
+         * @param id the Id (name) of the constraint
          * @param list the list of variables (not necessary the scopes)
          * @param startIndex the start index for the list
          * @param size the size of the circuit (here an variable)

@@ -13,17 +13,19 @@ public:
 
 	Var(string& name, const int id, const int num_vars, vector<int>& vals,
 		SearchHelper& helper) :name_(name), id_(id), num_vars_(num_vars), vals_(vals), helper(&helper), capacity_(vals.size()) {};
-	inline int id() const { return id_; }
-	int capacity() const { return capacity_; }
-	vector<int> last_remove_values;
-	vector<int> valid_values;
+	inline int Id() const { return id_; }
+	inline int Capacity() const { return capacity_; }
+	//vector<int> last_remove_values;
+	//vector<int> valid_values;
 
 	virtual int NewLevel() = 0;
 	virtual int BackLevel() = 0;
 	virtual int Size() = 0;
 	virtual void Bind(const int a) = 0;
-	bool IsBind() const { return bind_level != Constants::kINTMAX; };
-	bool IsBindOrLastPast() const { return bind_level < level_; };
+	inline bool IsBind() const { return bind_level_ != Constants::kINTMAX; };
+	//inline bool IsBindOrLastPast() const { return bind_level_ <= level_; };
+	inline bool IsLastPast() const { return bind_level_ == level_; };
+	inline bool NeedFilterDomain() const { return level_ <= bind_level_; };
 	virtual void Remove(const int a) = 0;
 	virtual bool IsEmpty() = 0;
 	virtual void Restrict() = 0;
@@ -34,8 +36,11 @@ public:
 	virtual int MinValue() = 0;
 	virtual int MaxValue() = 0;
 	virtual int NextValue(const int a) = 0;
-	virtual void GetLastRemoveValues(const int last) = 0;
-	virtual void GetValidValues() = 0;
+	//vector<int>& values
+	//virtual void GetLastRemoveValues(const int last) = 0;
+	//virtual void GetValidValues() = 0;
+	virtual void GetLastRemoveValues(const int last, vector<int>& values) = 0;
+	virtual void GetValidValues(vector<int>& values) = 0;
 	SearchHelper* helper;
 protected:
 	string name_;
@@ -44,12 +49,9 @@ protected:
 	vector<int> vals_;
 	int level_ = 0;
 	int capacity_ = 0;
-	int bind_level = Constants::kINTMAX;
+	int bind_level_ = Constants::kINTMAX;
 
 };
-
-
-
 
 class PVar :virtual Var {
 public:

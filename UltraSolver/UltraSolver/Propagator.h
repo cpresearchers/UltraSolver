@@ -19,7 +19,8 @@ public:
 	virtual void BackLevel() = 0;
 
 protected:
-
+	// last remove values and valid values
+	vector<int> values_;
 };
 }
 

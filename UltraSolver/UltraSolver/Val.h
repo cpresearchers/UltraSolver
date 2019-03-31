@@ -18,12 +18,12 @@ namespace cp
 	};
 
 	ostream& operator<<(ostream& os, Val v_a) {
-		os << "(" << v_a.v->id() << ", " << v_a.a << ") ";
+		os << "(" << v_a.v->Id() << ", " << v_a.a << ") ";
 		return os;
 	}
 
 	//ostream& operator<<(ostream& os, PVal v_a) {
-	//	os << "(" << v_a.v->id() << ", " << v_a.a << ") ";
+	//	os << "(" << v_a.v->Id() << ", " << v_a.a << ") ";
 	//	return os;
 	//}
 

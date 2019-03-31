@@ -263,7 +263,7 @@ namespace cp {
 
 	void HTab::show() {
 		const string sem = semantics ? "supports" : "conflicts";
-		cout << "id: " << id << " semantics: " << sem << " size: " << tuples.size()
+		cout << "Id: " << id << " semantics: " << sem << " size: " << tuples.size()
 			<< " arity:" << scope.size() << " scope = {" << scope << endl;
 		for (const auto& t : tuples) {
 			cout << "( ";
@@ -361,7 +361,7 @@ namespace cp {
 	//	for (auto x : t->scope)
 	//		for (auto y : t->scope)
 	//			if (x != y)
-	//				neighborhoods[x->id][y->id].push_back(t->id);
+	//				neighborhoods[x->Id][y->Id].push_back(t->Id);
 	//}
 
 	void HModel::get_scope(vector<string> & scp_str, vector<HVar*> & scp) {

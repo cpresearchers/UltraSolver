@@ -7,8 +7,8 @@ SparseSetVar::SparseSetVar(string& name, const int id, const int num_vars, vecto
 	sparse = vals;
 	size_level.resize(num_vars_, -1);
 	size_level[0] = vals.size();
-	last_remove_values.reserve(capacity_);
-	valid_values.reserve(capacity_);
+	//last_remove_values.reserve(capacity_);
+	//valid_values.reserve(capacity_);
 }
 
 inline int SparseSetVar::NewLevel() {
@@ -17,8 +17,8 @@ inline int SparseSetVar::NewLevel() {
 }
 
 inline int SparseSetVar::BackLevel() {
-	if (bind_level == level_)
-		bind_level = Constants::kUNBINDLEVEL;
+	if (bind_level_ == level_)
+		bind_level_ = Constants::kUNBINDLEVEL;
 
 	size_level[level_--] = -1;
 	return level_;
@@ -29,7 +29,7 @@ inline int SparseSetVar::Size() {
 }
 
 void SparseSetVar::Bind(const int a) {
-	bind_level = level_;
+	bind_level_ = level_;
 	if (sparse[a] >= size_level[level_]) {
 		size_level[level_] = 0;
 		cout << "value already removed" << endl;
@@ -41,9 +41,6 @@ void SparseSetVar::Bind(const int a) {
 }
 
 inline void SparseSetVar::swap(const int i, const int j) {
-	//const auto tmp = dense[i];
-	//dense[i] = dense[j];
-	//dense[j] = tmp;
 	dense[i] = dense[i] ^ dense[j];
 	dense[j] = dense[i] ^ dense[j];
 	dense[i] = dense[i] ^ dense[j];
@@ -78,7 +75,7 @@ bool SparseSetVar::FullMark() {
 }
 
 int SparseSetVar::BindLevel() {
-	return bind_level;
+	return bind_level_;
 }
 
 bool SparseSetVar::Contains(const int a) {
@@ -116,27 +113,23 @@ int SparseSetVar::NextValue(const int a) {
 	return Constants::INDEXOVERFLOW;
 }
 
-void SparseSetVar::GetLastRemoveValues(const int last) {
-	last_remove_values.clear();
-	auto a = Size();
-	if (last <= a)
+void SparseSetVar::GetLastRemoveValues(const int last, vector<int> & values) {
+	values.clear();
+	if (last <= Size())
 		return;
 
-
-	while (a < last) {
-		last_remove_values.push_back(dense[a]);
-		++a;
+	for (auto a = Size(); a < last; a++) {
+		values.push_back(dense[a]);
 	}
-
-	sort(last_remove_values.begin(), last_remove_values.end());
+	sort(values.begin(), values.end());
 }
 
-void SparseSetVar::GetValidValues() {
-	valid_values.clear();
-	for (size_t a = 0; a < Size(); a++) {
-		valid_values.push_back(dense[a]);
+void SparseSetVar::GetValidValues(vector<int> & values) {
+	values.clear();
+	for (auto a = 0; a < Size(); a++) {
+		values.push_back(dense[a]);
 	}
 
-	sort(valid_values.begin(), valid_values.end());
+	sort(values.begin(), values.end());
 }
 }
