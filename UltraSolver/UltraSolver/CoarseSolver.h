@@ -192,8 +192,6 @@ namespace cudacp {
 		vector<int> level_V_sparse_;
 		unique_ptr<CoarseQueue<Var*>> Q_;
 		vector<Var*> Y_evt_;
-
-
 	};
 }
 

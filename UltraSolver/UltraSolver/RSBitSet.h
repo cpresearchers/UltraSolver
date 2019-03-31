@@ -14,7 +14,7 @@ namespace cudacp
 			num_tuples_(num_tuples), num_vars_(num_vars)
 		{
 			num_level_ = num_vars + 1;
-			num_bit_ = ceil(double(num_tuples) / double(Constants::BITSIZE));
+			num_bit_ = int(ceil(double(num_tuples) / double(Constants::BITSIZE)));
 			//lastLimits = num_tuples % Constants.BITSIZE;
 
 			words_.resize(num_level_, vector<u64>(num_bit_));
@@ -49,7 +49,7 @@ namespace cudacp
 			num_vars_ = num_vars;
 
 			num_level_ = num_vars + 1;
-			num_bit_ = ceil(double(num_tuples) / double(Constants::BITSIZE));
+			num_bit_ = int(ceil(double(num_tuples) / double(Constants::BITSIZE)));
 			//lastLimits = num_tuples % Constants.BITSIZE;
 
 			words_.resize(num_level_, vector<u64>(num_bit_));
@@ -93,25 +93,8 @@ namespace cudacp
 			}
 		}
 
-		void DeleteLevel(int level) {
-			limit_[level] = -1;
-			prev_level_ = --level;
-			while (limit_[prev_level_] == -1) {
-				--prev_level_;
-			}
-			curr_level_ = prev_level_;
-
-			// !!tips:还有待坐有优化空间
-	////        currentLevel =
-	//        //回溯后currentLevel失效
-	//        if (currentLevel >= level){
-	//            preLevel = --level;
-	//            while (limit[preLevel] == -1) {
-	//                --preLevel;
-	//            }
-	//            currentLevel = preLevel;
-	//            limit[level] = -1;
-	//        }
+		void DeleteLevel() {
+			limit_[curr_level_--] = -1;
 		}
 
 		void BackToLevel(int level) {

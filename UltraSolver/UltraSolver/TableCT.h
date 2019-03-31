@@ -14,12 +14,14 @@ namespace cudacp {
 		TableCT(const int id, const int arity, const int num_vars, vector<Var*> scope, vector<vector<int>>& tuples, SearchHelper& helper) :
 			Propagator(id, scope), num_vars_(num_vars), tuples(tuples), helper(&helper)
 		{
-
 			curr_table_.reset(new RSBitSet(tuples.size(), num_vars_));
-			num_bit_ = ceil(double(tuples.size()) / double(Constants::BITSIZE));
+			num_bit_ = int(ceil(double(tuples.size()) / double(Constants::BITSIZE)));
 			supports_.resize(arity);
+			residues_.resize(arity);
+
 			for (size_t i = 0; i < arity; ++i)
 			{
+				auto size = scope[i]->Size();
 				supports_[i].resize(scope[i]->Size(), vector<u64>(num_bit_));
 				residues_[i].resize(scope[i]->Size(), -1);
 			}
@@ -65,7 +67,7 @@ namespace cudacp {
 		}
 
 		bool UpdateTable() {
-			const int num_sval = Sval_.size();
+			const size_t num_sval = Sval_.size();
 			for (size_t i = 0; i < num_sval; ++i) {
 				int vv = Sval_[i];
 				auto v = scope[vv];
@@ -100,7 +102,7 @@ namespace cudacp {
 
 		bool FilterDomains(vector<Var*> & y) {
 			y.clear();
-			const int num_ssup = Ssup_.size();
+			const size_t num_ssup = Ssup_.size();
 			for (size_t i = 0; i < num_ssup; ++i)
 			{
 				bool deleted = false;

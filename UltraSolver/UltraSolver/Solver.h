@@ -67,7 +67,7 @@ namespace cudacp
 				//选出的变量论域大小为1
 				if (v_a.v->Size() != 1 && consistent) {
 					Bind(v_a);
-					++++helper.nodes;
+					++helper.nodes;
 					x_evt.push_back(v_a.v);
 					consistent = CheckConsistencyAfterAssignment(x_evt);
 					x_evt.clear();
@@ -75,6 +75,7 @@ namespace cudacp
 
 				if (consistent && I.full()) {
 					helper.time = t.elapsed() - start;
+					I.show();
 					//cout << I << endl;
 					finished = true;
 					//get_solution();

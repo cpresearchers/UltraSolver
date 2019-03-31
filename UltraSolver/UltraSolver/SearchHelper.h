@@ -35,6 +35,7 @@ namespace cudacp
 		{
 			var_stamp.resize(m.vars.size(), 0);
 			tab_stamp.resize(m.tabs.size(), 0);
+			subscription.resize(m.tabs.size());
 		}
 	};
 

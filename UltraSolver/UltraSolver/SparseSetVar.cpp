@@ -8,6 +8,7 @@ namespace cudacp
 		dense = vals;
 		sparse = vals;
 		size_level.resize(num_vars_, -1);
+		size_level[0] = vals.size();
 		last_remove_values.reserve(capacity_);
 		valid_values.reserve(capacity_);
 	}
@@ -103,6 +104,18 @@ namespace cudacp
 	int SparseSetVar::MinValue()
 	{
 		for (int a = 0; a < capacity_; ++a)
+		{
+			if (Contains(a)) {
+				return a;
+			}
+		}
+
+		return Constants::INDEXOVERFLOW;
+	}
+
+	int SparseSetVar::MaxValue() {
+
+		for (int a = capacity_; a >= 0; --a)
 		{
 			if (Contains(a)) {
 				return a;
