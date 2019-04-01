@@ -117,8 +117,8 @@ public:
 					else {
 						deleted = true;
 						//无法找到支持, 删除(v, a)
+						//	cout << "name: " << Id() << ", delete: " << v->Id() << "," << a << endl;
 						v->Remove(a);
-						cout << "name: " << id << ", delete: " << v->Id() << "," << a << endl;
 					}
 				}
 			}

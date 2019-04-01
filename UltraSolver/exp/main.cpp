@@ -18,13 +18,14 @@ int main() {
 	GetHModel(bm_path, m);
 	const auto build_time = t.elapsed();
 	cout << build_time << endl;
-	m.show();
+	//m.show();
 	u64 time_limit = 1800000000000;
 	string propagator_name = "CT";
 	string var_name = "SparseSet";
 	string heu_name = "";
 	CoarseSolver ct(m, propagator_name, var_name, heu_name);
 	ct.Search(time_limit);
-
+	cout << "time: " << ct.helper.time << endl;
+	cout << "nodes: " << ct.helper.nodes << endl;
 	return 0;
 }

@@ -94,8 +94,8 @@ void XMLParser::VarTagAction::beginTag(const AttributeList &attributes) {
         variable = NULL;
 
 
-    if(!attributes["Id"].to(lid))
-        throw runtime_error("expected attribute Id for tag <var>");
+    if(!attributes["id"].to(lid))
+        throw runtime_error("expected attribute id for tag <var>");
     id = lid;
 
     if(!attributes["class"].isNull())
@@ -170,8 +170,8 @@ void XMLParser::ArrayTagAction::beginTag(const AttributeList &attributes) {
     domain = NULL;
     sizes.clear();
 
-    if(!attributes["Id"].to(lid))
-        throw runtime_error("expected attribute Id for tag <array>");
+    if(!attributes["id"].to(lid))
+        throw runtime_error("expected attribute id for tag <array>");
     id = lid;
 
     if(!attributes["class"].isNull())
@@ -196,7 +196,7 @@ void XMLParser::ArrayTagAction::beginTag(const AttributeList &attributes) {
         varArray = new XVariableArray(id, similar);
     } else {
         if(!attributes["size"].to(size))
-            throw runtime_error("expected attribute Id for tag <array>");
+            throw runtime_error("expected attribute id for tag <array>");
         vector<std::string> stringSizes = split(size, '[');
         for(unsigned int i = 0 ; i < stringSizes.size() ; i++) {
             if(stringSizes[i].size() == 0)
@@ -309,7 +309,7 @@ void XMLParser::BasicConstraintTagAction::beginTag(const AttributeList &attribut
                 this->parser->getParentTagAction(3))->group;
 
 
-    attributes["Id"].to(id);
+    attributes["id"].to(id);
 
     if(!attributes["class"].isNull())
         attributes["class"].to(this->parser->classes);
@@ -1411,7 +1411,7 @@ void XMLParser::ConflictOrSupportTagAction::text(const UTF8String txt, bool) {
 void XMLParser::GroupTagAction::beginTag(const AttributeList &attributes) {
     string lid, tmp;
     //this->checkParentTag("constraints");
-    attributes["Id"].to(lid);
+    attributes["id"].to(lid);
 
     if(!attributes["class"].isNull())
         attributes["class"].to(tmp);
@@ -1440,7 +1440,7 @@ void XMLParser::GroupTagAction::endTag() {
 void XMLParser::SlideTagAction::beginTag(const AttributeList &attributes) {
     string lid, tmp;
     //this->checkParentTag("constraints");
-    attributes["Id"].to(lid);
+    attributes["id"].to(lid);
     if(!attributes["circular"].isNull()) {
         string tmp;
         attributes["circular"].to(tmp);
@@ -1506,7 +1506,7 @@ void XMLParser::BlockTagAction::beginTag(const AttributeList &attributes) {
     string classes, lid;
 
     this->checkParentTag("constraints");
-    attributes["Id"].to(lid);
+    attributes["id"].to(lid);
     if(!attributes["class"].isNull())
         attributes["class"].to(classes);
     else

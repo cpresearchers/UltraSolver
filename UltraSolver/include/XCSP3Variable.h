@@ -126,7 +126,7 @@ namespace XCSP3Core {
 
 
         /**
-         * Builds an array of variables with the specified Id, type and size. 
+         * Builds an array of variables with the specified id, type and size. 
          * All variables are directly defined with the specified domain. 
          *
          */

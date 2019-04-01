@@ -26,5 +26,11 @@
     <Xml Include="BMPath.xml">
       <Filter>资源文件</Filter>
     </Xml>
+    <Xml Include="rand-5-12-12-200-12442-01.xml">
+      <Filter>资源文件</Filter>
+    </Xml>
+    <Xml Include="queen12.xml">
+      <Filter>资源文件</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

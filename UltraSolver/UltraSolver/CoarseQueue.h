@@ -41,9 +41,9 @@ public:
 	}
 
 	void clear() {
-		int front_ = 0;
-		int rear_ = 0;
-		int size_ = 0;
+		front_ = 0;
+		rear_ = 0;
+		size_ = 0;
 		in_stack_.assign(max_size_, false);
 	}
 

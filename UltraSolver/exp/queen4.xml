@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <instance type="CSP" format="XCSP3">
   <variables>
-    <array Id="x" size="[4]"> 1..4 </array>
+    <array id="x" size="[4]"> 1..4 </array>
   </variables>
   <constraints>
     <extension>

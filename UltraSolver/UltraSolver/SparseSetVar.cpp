@@ -5,14 +5,13 @@ SparseSetVar::SparseSetVar(string& name, const int id, const int num_vars, vecto
 	Var(name, id, num_vars, vals, helper), mark(0) {
 	dense = vals;
 	sparse = vals;
-	size_level.resize(num_vars_, -1);
+	size_level.resize(num_vars_ + 1, -1);
 	size_level[0] = vals.size();
-	//last_remove_values.reserve(capacity_);
-	//valid_values.reserve(capacity_);
 }
 
 inline int SparseSetVar::NewLevel() {
-	size_level[level_] = size_level[level_++];
+	level_++;
+	size_level[level_] = size_level[level_ - 1];
 	return level_;
 }
 
@@ -20,7 +19,8 @@ inline int SparseSetVar::BackLevel() {
 	if (bind_level_ == level_)
 		bind_level_ = Constants::kUNBINDLEVEL;
 
-	size_level[level_--] = -1;
+	size_level[level_] = -1;
+	level_--;
 	return level_;
 }
 
@@ -41,9 +41,14 @@ void SparseSetVar::Bind(const int a) {
 }
 
 inline void SparseSetVar::swap(const int i, const int j) {
-	dense[i] = dense[i] ^ dense[j];
-	dense[j] = dense[i] ^ dense[j];
-	dense[i] = dense[i] ^ dense[j];
+	//dense[i] = dense[i] ^ dense[j];
+	//dense[j] = dense[i] ^ dense[j];
+	//dense[i] = dense[i] ^ dense[j];
+	std::swap(dense[i], dense[j]);
+	//const auto tmp = dense[i];
+	//dense[i] = dense[j];
+	//dense[j] = tmp;
+
 	sparse[dense[i]] = i;
 	sparse[dense[j]] = j;
 }

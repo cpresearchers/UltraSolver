@@ -28,6 +28,12 @@ public:
 		m(&m) {
 		I.Initial(num_vars);
 		helper.Initial(m);
+		level_V_dense_.resize(num_vars, 0);
+		level_V_sparse_.resize(num_vars, 0);
+		for (size_t i = 0; i < num_vars; i++) {
+			level_V_dense_[i] = i;
+			level_V_sparse_[i] = i;
+		}
 	}
 
 	void Search(int64_t time_limit) {
@@ -55,9 +61,7 @@ public:
 			++helper.nodes;
 			NewLevel();
 			I.push(v_a);
-			cout << "---------------------------" << endl;
-			cout << "push: " << v_a << endl;
-			cout << "---------------------------" << endl;
+			//cout << "push: " << v_a << ", " << helper.nodes << endl;
 
 			////选出的变量论域大小为1
 			//if (v_a.v->Size() != 1 && consistent) {
@@ -76,13 +80,12 @@ public:
 
 			while (!consistent && !I.empty()) {
 				v_a = I.pop();
-				cout << "---------------------------" << endl;
-				cout << "pop:  " << v_a << endl;
-				cout << "---------------------------" << endl;
+				//cout << "pop:  " << v_a << ", " << helper.nodes << endl;
+
 				BackLevel();
 				//选出的变量论域大小不为1
 				Remove(v_a);
-				++helper.nodes;
+
 				x_evt.push_back(v_a.v);
 				consistent = CheckConsistencyAfterRefutation(x_evt);
 				x_evt.clear();
@@ -118,11 +121,63 @@ public:
 		}
 	}
 
-	virtual Val SelectVal() = 0;
 
-	virtual void Bind(Val& va) = 0;
+	//修改levelvdense
+	Val SelectVal() {
+		double mindmdd = DBL_MAX;
+		Var* minv = nullptr;
 
-	virtual void Remove(Val& va) = 0;
+		for (auto i = helper.level; i < num_vars; ++i) {
+			const auto vid = level_V_dense_[i];
+			auto  v = vars[vid];
+			double ddeg = 0.0;
+
+			for (auto c : helper.subscription[vid]) {
+				if (c->bind_count + 1 < c->arity) {
+					ddeg++;
+				}
+			}
+
+			if (ddeg == 0) {
+				return Val{ v, v->MinValue() };
+			}
+
+			const auto sizeD = v->Size();
+			const double dmdd = sizeD / ddeg;
+			if (dmdd < mindmdd) {
+				minv = v;
+				mindmdd = dmdd;
+			}
+		}
+
+		return  Val{ minv, minv->MinValue() };
+	}
+
+	void Bind(Val& v_a) {
+		//在稀疏集上交换变量
+		auto minvi = level_V_sparse_[v_a.v->Id()];
+		auto a = level_V_dense_[helper.level - 1];
+		level_V_dense_[helper.level - 1] = level_V_dense_[minvi];
+
+		level_V_sparse_[a] = minvi;
+		level_V_sparse_[level_V_dense_[minvi]] = helper.level - 1;
+
+		level_V_dense_[minvi] = a;
+
+		for (auto c : helper.subscription[v_a.v->Id()]) {
+			c->bind_count++;
+		}
+
+		v_a.v->Bind(v_a.a);
+	}
+
+	void Remove(Val& v_a) {
+		//约束的已实例化变量个数减1
+		for (auto c : helper.subscription[v_a.v->Id()]) {
+			c->bind_count--;
+		}
+		v_a.v->Remove(v_a.a);
+	}
 
 	virtual bool InitialPropagate() = 0;
 
@@ -144,7 +199,22 @@ public:
 		tabs.clear();
 	}
 
+	void show() {
+		vector<int> values;
+		cout << "----------------------show----------------------" << endl;
+		for (auto v : vars) {
+			v->GetValidValues(values);
+			cout << v->Id() << ": " << v->Size() << ": ";
+			for (auto a : values) {
+				cout << a << " ";
+			}
+			cout << endl;
+		}
+		cout << "----------------------show----------------------" << endl;
+	}
 protected:
+	vector<int> level_V_dense_;
+	vector<int> level_V_sparse_;
 	string& propagator_type_;
 	string& var_type_;
 	string& heu_type_;
