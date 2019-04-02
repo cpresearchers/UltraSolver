@@ -1,5 +1,9 @@
-﻿#include "SparseSetVar.h"
+﻿#include "Var.h"
+#include <iostream>
+#include <algorithm>
+
 namespace cp {
+using namespace std;
 SparseSetVar::SparseSetVar(string& name, const int id, const int num_vars, vector<int>& vals,
 						   SearchHelper& helper) :
 	Var(name, id, num_vars, vals, helper), mark(0) {
@@ -10,8 +14,8 @@ SparseSetVar::SparseSetVar(string& name, const int id, const int num_vars, vecto
 }
 
 inline int SparseSetVar::NewLevel() {
-	level_++;
-	size_level[level_] = size_level[level_ - 1];
+	//level_++;
+	size_level[level_] = size_level[level_++];
 	return level_;
 }
 
@@ -19,8 +23,8 @@ inline int SparseSetVar::BackLevel() {
 	if (bind_level_ == level_)
 		bind_level_ = Constants::kUNBINDLEVEL;
 
-	size_level[level_] = -1;
-	level_--;
+	size_level[level_--] = -1;
+	//level_--;
 	return level_;
 }
 
@@ -41,9 +45,6 @@ void SparseSetVar::Bind(const int a) {
 }
 
 inline void SparseSetVar::swap(const int i, const int j) {
-	//dense[i] = dense[i] ^ dense[j];
-	//dense[j] = dense[i] ^ dense[j];
-	//dense[i] = dense[i] ^ dense[j];
 	std::swap(dense[i], dense[j]);
 	//const auto tmp = dense[i];
 	//dense[i] = dense[j];

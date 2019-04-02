@@ -33,13 +33,7 @@
     <ClInclude Include="Var.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="Val.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="Solver.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="SparseSetVar.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="TableCT.h">
@@ -56,9 +50,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SearchHelper.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="BitSet.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -71,10 +62,10 @@
     <ClCompile Include="TableCT.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="RSparseBitSet.cpp">
+    <ClCompile Include="CoarseSolver.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="CoarseSolver.cpp">
+    <ClCompile Include="RSBitSet.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

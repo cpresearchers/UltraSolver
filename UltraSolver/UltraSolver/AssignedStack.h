@@ -1,8 +1,20 @@
 ﻿#pragma once
-#include "Val.h"
-#include <iostream>
+#include "Var.h"
 namespace cp {
 using namespace std;
+
+class Val {
+public:
+	Var* v;
+	int a;
+};
+
+class PVal {
+public:
+	PVar* v;
+	int a;
+};
+
 template<class T>
 class AssignedStack {
 public:

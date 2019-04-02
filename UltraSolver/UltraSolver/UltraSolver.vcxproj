@@ -28,16 +28,13 @@
     <ClInclude Include="SearchHelper.h" />
     <ClInclude Include="Solver.h" />
     <ClInclude Include="SparseSet.h" />
-    <ClInclude Include="SparseSetVar.h" />
     <ClInclude Include="TableCT.h" />
-    <ClInclude Include="Val.h" />
     <ClInclude Include="Var.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp" />
     <ClCompile Include="CoarseSolver.cpp" />
-    <ClCompile Include="RSparseBitSet.cpp" />
-    <ClCompile Include="SearchHelper.cpp" />
+    <ClCompile Include="RSBitSet.cpp" />
     <ClCompile Include="SparseSet.cpp" />
     <ClCompile Include="SparseSetVar.cpp" />
     <ClCompile Include="TableCT.cpp" />

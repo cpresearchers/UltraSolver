@@ -4,7 +4,6 @@
 #include "SearchHelper.h"
 #include "Timer.h"
 #include "AssignedStack.h"
-#include "Val.h"
 #include "HModel.h"
 
 namespace cp {
@@ -185,7 +184,7 @@ public:
 
 	virtual bool CheckConsistencyAfterRefutation(vector<Var*>& x_evt) = 0;
 
-	~Solver() {
+	virtual ~Solver() {
 		for (size_t i = 0; i < num_vars; i++) {
 			delete vars[i];
 		}
