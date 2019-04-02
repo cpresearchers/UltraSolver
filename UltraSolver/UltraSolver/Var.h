@@ -10,7 +10,6 @@ class SearchHelper;
 class Var {
 public:
 	virtual ~Var() = default;
-
 	Var(string& name, const int id, const int num_vars, vector<int>& vals,
 		SearchHelper& helper) :name_(name), id_(id), num_vars_(num_vars), vals_(vals), helper(&helper), capacity_(vals.size()) {};
 	inline int Id() const { return id_; }
@@ -31,7 +30,7 @@ public:
 	virtual void Restrict() = 0;
 	virtual void Mark(const int a) = 0;
 	virtual bool FullMark() = 0;
-	virtual int BindLevel() = 0;
+	int BindLevel() const { return bind_level_; }
 	virtual bool Contains(const int a) = 0;
 	virtual int MinValue() = 0;
 	virtual int MaxValue() = 0;
@@ -39,7 +38,7 @@ public:
 	//vector<int>& values
 	//virtual void GetLastRemoveValues(const int last) = 0;
 	//virtual void GetValidValues() = 0;
-	virtual void GetLastRemoveValues(const int last, vector<int>& values) = 0;
+	virtual void GetLastRemoveValues(const u64 last, const u64 mask, vector<int>& values) = 0;
 	virtual void GetValidValues(vector<int>& values) = 0;
 	SearchHelper* helper;
 protected:
@@ -53,12 +52,19 @@ protected:
 
 };
 
-class PVar :virtual Var {
+class PVar :public virtual Var {
 public:
-	u64 SimpleMask();
-	bool SubmitMask();
-	u64 SubmitMaskAndGet();
-	u64 GetAndSubmitMask();
+	//PVar(string& name, const int id, const int num_vars, vector<int>& vals,
+	//	 SearchHelper& helper) :Var(name, id, num_vars, vals, helper) {};
+	virtual u64 SimpleMask() = 0;
+	virtual bool SubmitMask() = 0;
+	virtual u64 SubmitMaskAndGet() = 0;
+	virtual u64 GetAndSubmitMask() = 0;
+	//protected:
+	//	string name_;
+	//	int level_ = 0;
+	//	int capacity_ = 0;
+	//	int bind_level_ = Constants::kINTMAX;
 };
 
 class SparseSetVar : public Var {
@@ -85,13 +91,38 @@ public:
 	void Restrict() override;
 	void Mark(const int a) override;
 	bool FullMark() override;
-	int BindLevel() override;
 	bool Contains(const int a) override;
 	int MinValue() override;
 	int MaxValue() override;
 	int NextValue(const int a) override;
-	void GetLastRemoveValues(const int last, vector<int>& values) override;
+	void GetLastRemoveValues(const u64 last, const u64 mask, vector<int>& values) override;
 	void GetValidValues(vector<int>& values) override;
 	inline void swap(const int i, const int j);
 };
+
+
+///**
+// * \brief 用于论域小于64的变量
+// */
+//class SafeSimpleBitVar :public Var {
+//public:
+//	SafeSimpleBitVar(string& name, const int id, const int num_vars, vector<int>& vals, SearchHelper& helper);
+//	~SafeSimpleBitVar() override;
+//	int NewLevel() override;
+//	int BackLevel() override;
+//	int Size() override;
+//	void Bind(const int a) override;
+//	void Remove(const int a) override;
+//	bool IsEmpty() override;
+//	void Restrict() override;
+//	void Mark(const int a) override;
+//	bool FullMark() override;
+//	int BindLevel() override;
+//	bool Contains(const int a) override;
+//	int MinValue() override;
+//	int MaxValue() override;
+//	int NextValue(const int a) override;
+//	void GetLastRemoveValues(const int last, vector<int>& values) override;
+//	void GetValidValues(vector<int>& values) override;
+//};
 }

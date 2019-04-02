@@ -25,6 +25,7 @@
     <ClInclude Include="CoarseSolver.h" />
     <ClInclude Include="Propagator.h" />
     <ClInclude Include="RSBitSet.h" />
+    <ClInclude Include="SafeSimpleBitVar.h" />
     <ClInclude Include="SearchHelper.h" />
     <ClInclude Include="Solver.h" />
     <ClInclude Include="SparseSet.h" />
@@ -35,6 +36,7 @@
     <ClCompile Include="BitSet.cpp" />
     <ClCompile Include="CoarseSolver.cpp" />
     <ClCompile Include="RSBitSet.cpp" />
+    <ClCompile Include="SafeSimpleBitVar.cpp" />
     <ClCompile Include="SparseSet.cpp" />
     <ClCompile Include="SparseSetVar.cpp" />
     <ClCompile Include="TableCT.cpp" />

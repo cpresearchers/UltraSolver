@@ -1,4 +1,5 @@
 #include <taskflow/taskflow.hpp>  // Cpp-Taskflow is header-only
+
 int main() {
 
 	tf::Taskflow taskflow;
@@ -15,5 +16,25 @@ int main() {
 	C.precede(D);  // C runs before D                  //    +---->| C |-----+    
 													   //          +---+          
 	taskflow.wait_for_all();  // block until finish
+
+	auto b = 0;
+	auto c = b++;
+	std::cout << b << ", " << c << std::endl;
+	using namespace std;
+
+	unsigned long mask = 0x1000;
+	unsigned long index;
+	unsigned char isNonzero;
+
+	cout << "Enter a positive integer as the mask: " << flush;
+	cin >> mask;
+	isNonzero = _BitScanForward(&index, mask);
+	if (isNonzero) {
+		cout << "Mask: " << mask << " Index: " << index << endl;
+	}
+	else {
+		cout << "No set bits found.  Mask is zero." << endl;
+	}
+
 	return 0;
 }

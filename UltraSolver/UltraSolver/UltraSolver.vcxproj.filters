@@ -48,6 +48,9 @@
     <ClInclude Include="CoarseQueue.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="SafeSimpleBitVar.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp">
@@ -66,6 +69,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="RSBitSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SafeSimpleBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

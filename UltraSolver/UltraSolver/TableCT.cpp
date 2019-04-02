@@ -62,7 +62,7 @@ bool TableCT::UpdateTable() {
 		// !!此处delta重写了一次
 		if ((old_size_[vv] - v->Size()) < v->Size()) {
 			// delta更新
-			v->GetLastRemoveValues(old_size_[vv], values_);
+			v->GetLastRemoveValues(old_size_[vv], 0, values_);
 			for (auto a : values_) {
 				curr_table_->AddToMask(supports_[vv][a]);
 			}

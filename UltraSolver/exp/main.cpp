@@ -8,6 +8,7 @@ using namespace XCSP3Core;
 using namespace cp;
 
 const string x_path = "BMPath.xml";
+
 int main() {
 	string bm_path;
 	if (FindBMPath(x_path))
@@ -29,3 +30,5 @@ int main() {
 	cout << "nodes: " << ct.helper.nodes << endl;
 	return 0;
 }
+
+

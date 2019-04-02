@@ -25,8 +25,8 @@ public:
 	}
 
 	void push(const T va) {
-		++index_;
-		table_[index_] = va;
+		//++index_;
+		table_[++index_] = va;
 		in_stack_[va.v->Id()] = va.a;
 	}
 
@@ -36,9 +36,9 @@ public:
 			return T{ nullptr,-1 };
 		}
 
-		T x = table_[index_];
-		//table_[index_] = nullptr;
-		--index_;
+		T x = table_[index_--];
+		////table_[index_] = nullptr;
+		//--index_;
 		in_stack_[x.v->Id()] = -1;
 		return x;
 	}

@@ -45,10 +45,10 @@ void SparseSetVar::Bind(const int a) {
 }
 
 inline void SparseSetVar::swap(const int i, const int j) {
-	std::swap(dense[i], dense[j]);
-	//const auto tmp = dense[i];
-	//dense[i] = dense[j];
-	//dense[j] = tmp;
+	//std::swap(dense[i], dense[j]);
+	const auto tmp = dense[i];
+	dense[i] = dense[j];
+	dense[j] = tmp;
 
 	sparse[dense[i]] = i;
 	sparse[dense[j]] = j;
@@ -78,10 +78,6 @@ void SparseSetVar::Mark(const int a) {
 
 bool SparseSetVar::FullMark() {
 	return mark == size_level[level_];
-}
-
-int SparseSetVar::BindLevel() {
-	return bind_level_;
 }
 
 bool SparseSetVar::Contains(const int a) {
@@ -119,7 +115,7 @@ int SparseSetVar::NextValue(const int a) {
 	return Constants::INDEXOVERFLOW;
 }
 
-void SparseSetVar::GetLastRemoveValues(const int last, vector<int> & values) {
+void SparseSetVar::GetLastRemoveValues(const u64 last, const u64 mask, vector<int>& values) {
 	values.clear();
 	if (last <= Size())
 		return;
