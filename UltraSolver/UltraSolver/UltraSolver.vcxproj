@@ -30,6 +30,7 @@
     <ClInclude Include="Solver.h" />
     <ClInclude Include="SparseSet.h" />
     <ClInclude Include="TableCT.h" />
+    <ClInclude Include="TableCTWithBitVar.h" />
     <ClInclude Include="Var.h" />
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +41,7 @@
     <ClCompile Include="SparseSet.cpp" />
     <ClCompile Include="SparseSetVar.cpp" />
     <ClCompile Include="TableCT.cpp" />
+    <ClCompile Include="TableCTWithBitVar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XModel\XModel.vcxproj">

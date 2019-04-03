@@ -154,8 +154,8 @@ public:
 
 	void Bind(Val& v_a) {
 		//在稀疏集上交换变量
-		auto minvi = level_V_sparse_[v_a.v->Id()];
-		auto a = level_V_dense_[helper.level - 1];
+		const auto minvi = level_V_sparse_[v_a.v->Id()];
+		const auto a = level_V_dense_[helper.level - 1];
 		level_V_dense_[helper.level - 1] = level_V_dense_[minvi];
 
 		level_V_sparse_[a] = minvi;

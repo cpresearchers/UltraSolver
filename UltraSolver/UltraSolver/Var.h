@@ -11,9 +11,9 @@ class Var {
 public:
 	virtual ~Var() = default;
 	Var(string& name, const int id, const int num_vars, vector<int>& vals,
-		SearchHelper& helper) :name_(name), id_(id), num_vars_(num_vars), vals_(vals), helper(&helper), capacity_(vals.size()) {};
-	inline int Id() const { return id_; }
-	inline int Capacity() const { return capacity_; }
+		SearchHelper& helper) :helper(&helper), name_(name), id_(id), num_vars_(num_vars), vals_(vals), capacity_(vals.size()) {};
+	int Id() const { return id_; }
+	int Capacity() const { return capacity_; }
 	//vector<int> last_remove_values;
 	//vector<int> valid_values;
 
@@ -38,7 +38,7 @@ public:
 	//vector<int>& values
 	//virtual void GetLastRemoveValues(const int last) = 0;
 	//virtual void GetValidValues() = 0;
-	virtual void GetLastRemoveValues(const u64 last, const u64 mask, vector<int>& values) = 0;
+	virtual void GetLastRemoveValues(const u64 last, vector<int>& values) = 0;
 	virtual void GetValidValues(vector<int>& values) = 0;
 	SearchHelper* helper;
 protected:
@@ -57,9 +57,9 @@ public:
 	//PVar(string& name, const int id, const int num_vars, vector<int>& vals,
 	//	 SearchHelper& helper) :Var(name, id, num_vars, vals, helper) {};
 	virtual u64 SimpleMask() = 0;
-	virtual bool SubmitMask() = 0;
-	virtual u64 SubmitMaskAndGet() = 0;
-	virtual u64 GetAndSubmitMask() = 0;
+	virtual u64 SubmitMask(const u64 mask) = 0;
+	virtual u64 SubmitMaskAndGet(const u64 mask) = 0;
+	virtual u64 GetAndSubmitMask(const u64 mask) = 0;
 	//protected:
 	//	string name_;
 	//	int level_ = 0;
@@ -95,7 +95,7 @@ public:
 	int MinValue() override;
 	int MaxValue() override;
 	int NextValue(const int a) override;
-	void GetLastRemoveValues(const u64 last, const u64 mask, vector<int>& values) override;
+	void GetLastRemoveValues(const u64 last,  vector<int>& values) override;
 	void GetValidValues(vector<int>& values) override;
 	inline void swap(const int i, const int j);
 };

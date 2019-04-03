@@ -21,8 +21,10 @@ int main() {
 	cout << build_time << endl;
 	//m.show();
 	const u64 time_limit = 1800000000000;
-	string propagator_name = "CT";
-	string var_name = "SparseSet";
+	//string propagator_name = "CT";
+	string propagator_name = "CTBT";
+	//string var_name = "SparseSet";
+	string var_name = "SSBV";
 	string heu_name;
 	CoarseSolver ct(m, propagator_name, var_name, heu_name);
 	ct.Search(time_limit);

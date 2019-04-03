@@ -115,7 +115,7 @@ int SparseSetVar::NextValue(const int a) {
 	return Constants::INDEXOVERFLOW;
 }
 
-void SparseSetVar::GetLastRemoveValues(const u64 last, const u64 mask, vector<int>& values) {
+void SparseSetVar::GetLastRemoveValues(const u64 last, vector<int>& values) {
 	values.clear();
 	if (last <= Size())
 		return;

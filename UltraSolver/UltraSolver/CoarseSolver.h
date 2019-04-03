@@ -10,9 +10,9 @@ namespace cp {
 class CoarseSolver final :
 	public Solver {
 public:
-	CoarseSolver(HModel& hm, string& propagator_type, string& var_type, string& heu_type);;
+	CoarseSolver(HModel& hm, string& propagator_type, string& var_type, string& heu_type);
 
-	~CoarseSolver();;
+	~CoarseSolver(){}
 
 	bool InitialPropagate() override;
 

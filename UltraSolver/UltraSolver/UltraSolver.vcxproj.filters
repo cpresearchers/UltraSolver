@@ -51,6 +51,9 @@
     <ClInclude Include="SafeSimpleBitVar.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="TableCTWithBitVar.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp">
@@ -72,6 +75,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="SafeSimpleBitVar.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="TableCTWithBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
