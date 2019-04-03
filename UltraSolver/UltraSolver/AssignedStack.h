@@ -15,6 +15,11 @@ public:
 	int a;
 };
 
+inline ostream& operator<<(ostream& os, Val& va) {
+	os << va.v->Id() << ", " << va.a;
+	return os;
+}
+
 template<class T>
 class AssignedStack {
 public:

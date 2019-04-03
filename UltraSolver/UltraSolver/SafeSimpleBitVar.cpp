@@ -37,8 +37,8 @@ void SafeSimpleBitVar::Bind(const int a) {
 }
 
 void SafeSimpleBitVar::Remove(const int a) {
-	BIT_CLEAR(bit_doms_[level_], a);
-	//bit_doms_[level_] &= Constants::MASK0[a];
+	//BIT_CLEAR(bit_doms_[level_], a);
+	bit_doms_[level_] &= Constants::MASK0[a];
 }
 
 bool SafeSimpleBitVar::IsEmpty() {
@@ -50,19 +50,21 @@ void SafeSimpleBitVar::Restrict() {
 }
 
 void SafeSimpleBitVar::Mark(const int a) {
-	BIT_SET(bit_mark_, a);
+	bit_mark_ |= Constants::MASK1[a];
+	//BIT_SET(bit_mark_, a);
 }
 
 bool SafeSimpleBitVar::FullMark() {
-	return !(bit_doms_[level_] ^ bit_mark_);
+	return !(bit_doms_[level_].load() ^ bit_mark_.load());
 }
 
 bool SafeSimpleBitVar::Contains(const int a) {
-	return BIT_CHECK(bit_doms_[level_], a);
+	return !(!(bit_doms_[level_].load() & Constants::MASK1[a]));
+	//return BIT_CHECK(bit_doms_[level_], a);
 }
 
 int SafeSimpleBitVar::MinValue() {
-	return CLZ64(bit_doms_[level_]);
+	return CLZ64(bit_doms_[level_].load());
 }
 
 int SafeSimpleBitVar::MaxValue() {
@@ -78,14 +80,20 @@ void SafeSimpleBitVar::GetLastRemoveValues(const u64 last, vector<int> & values)
 	// 取mask
 	const auto b = (last & (~bit_doms_[level_]));
 	for (int i = CLZ64(b), end = CTZ64(b); i <= end; ++i) {
-		values.push_back(i);
+		//if (BIT_CHECK(b, i)) {
+		if (!!(b & Constants::MASK1[i])) {
+			values.push_back(i);
+		}
 	}
 }
 
 void SafeSimpleBitVar::GetValidValues(vector<int> & values) {
-	const auto b = ~bit_doms_[level_].load();
+	values.clear();
+	const auto b = bit_doms_[level_].load();
 	for (int i = CLZ64(b), end = CTZ64(b); i <= end; ++i) {
-		values.push_back(i);
+		if (Contains(i)) {
+			values.push_back(i);
+		}
 	}
 }
 

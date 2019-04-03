@@ -31,7 +31,7 @@ private:
 	unique_ptr<RSBitSet> curr_table_;
 	vector<vector<vector<u64>>> supports_;
 	vector<vector<int>> residues_;
-	vector<PVar*> pscope ;
+	vector<PVar*> pscope_;
 	vector<int> Ssup_;
 	vector<int> Sval_;
 	vector<u64> last_mask_;
