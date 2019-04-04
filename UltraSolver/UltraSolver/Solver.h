@@ -60,8 +60,8 @@ public:
 			++helper.nodes;
 			NewLevel();
 			I.push(v_a);
-			cout << "push: " << v_a << ", " << helper.nodes << endl;
-			show();
+			//cout << "push: " << v_a << ", " << helper.nodes << endl;
+			//show();
 			////选出的变量论域大小为1
 			//if (v_a.v->Size() != 1 && consistent) {
 			Bind(v_a);
@@ -69,7 +69,7 @@ public:
 			consistent = CheckConsistencyAfterAssignment(x_evt);
 			x_evt.clear();
 			//}
-			show();
+			//show();
 			if (consistent && I.full()) {
 				helper.time = t.elapsed() - start;
 				I.show();
@@ -79,16 +79,16 @@ public:
 
 			while (!consistent && !I.empty()) {
 				v_a = I.pop();
-				cout << "pop:  " << v_a << ", " << helper.nodes << endl;
+				//cout << "pop:  " << v_a << ", " << helper.nodes << endl;
 
 				BackLevel();
 				//选出的变量论域大小不为1
 				Remove(v_a);
-				show();
+				//show();
 				x_evt.push_back(v_a.v);
 				consistent = CheckConsistencyAfterRefutation(x_evt);
 				x_evt.clear();
-				show();
+				//show();
 			}
 
 			if (!consistent) {
