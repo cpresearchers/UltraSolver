@@ -57,6 +57,12 @@
     <ClInclude Include="TablePCT.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="PSearchHelper.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PPropagator.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp">
