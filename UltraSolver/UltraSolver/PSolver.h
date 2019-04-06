@@ -39,7 +39,7 @@ public:
 	void Search(int64_t time_limit) {
 		Timer t;
 		bool finished = false;
-		vector<Var*> x_evt(num_vars);
+		vector<PVar*> x_evt(num_vars);
 		x_evt.clear();
 
 		const u64 start = t.elapsed();
@@ -182,9 +182,9 @@ public:
 
 	virtual bool InitialPropagate() = 0;
 
-	virtual bool CheckConsistencyAfterAssignment(vector<Var*>& x_evt) = 0;
+	virtual bool CheckConsistencyAfterAssignment(vector<PVar*>& x_evt) = 0;
 
-	virtual bool CheckConsistencyAfterRefutation(vector<Var*>& x_evt) = 0;
+	virtual bool CheckConsistencyAfterRefutation(vector<PVar*>& x_evt) = 0;
 
 	virtual ~PSolver() {
 		for (size_t i = 0; i < num_vars; i++) {

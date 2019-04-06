@@ -173,6 +173,10 @@ void TablePCT::BackLevel() {
 	}
 }
 
-void TablePCT::operator()() const {}
+void TablePCT::operator()()
+{
+
+}
+
 }
 
