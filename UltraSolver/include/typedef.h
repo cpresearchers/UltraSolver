@@ -71,9 +71,23 @@ inline int GetIndex(const Index2D& index2D) {
 //inline int BitCount64(u64& i) {
 //	return __builtin_popcountll(i);
 //}
+//
+//inline int LeftMostOne64(u64& i) {
+//	return CLZ64(i);
+//}
 
-inline int LeftMostOne64(u64& i) {
-	return CLZ64(i);
+
+inline bool Has(const u64 b, const int a) {
+	return !(!(b & Constants::MASK1[a]));
+}
+
+inline void GetValues(u64 b, std::vector<int>& values) {
+	values.clear();
+	for (int i = CLZ64(b), end = CTZ64(b); i <= end; ++i) {
+		if (b & Constants::MASK1[i]) {
+			values.push_back(i);
+		}
+	}
 }
 
 }

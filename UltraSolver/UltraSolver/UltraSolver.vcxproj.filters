@@ -63,6 +63,15 @@
     <ClInclude Include="PPropagator.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="PSolver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PCoarseSolver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleBitVar.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp">
@@ -90,6 +99,15 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="TablePCT.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PSolver.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PCoarseSolver.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

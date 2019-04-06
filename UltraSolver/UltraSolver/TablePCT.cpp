@@ -61,6 +61,9 @@ bool TablePCT::InitGAC() {
 
 bool TablePCT::UpdateTable() {
 	for (int vv : Sval_) {
+		if (!helper->is_consistent) {
+			return false;
+		}
 		auto v = scope[vv];
 		curr_table_->ClearMask();
 
@@ -89,6 +92,7 @@ bool TablePCT::UpdateTable() {
 		bool changed = curr_table_->IntersectWithMask();
 		//传播失败
 		if (curr_table_->IsEmpty()) {
+			helper->is_consistent = false;
 			return false;
 		}
 	}
@@ -100,6 +104,9 @@ bool TablePCT::UpdateTable() {
 bool TablePCT::FilterDomains(vector<Var*> & y) {
 	y.clear();
 	for (int vv : Ssup_) {
+		if (!helper->is_consistent) {
+			return false;
+		}
 		bool deleted = false;
 		auto v = scope[vv];
 		v->GetValidValues(values_);
@@ -116,21 +123,27 @@ bool TablePCT::FilterDomains(vector<Var*> & y) {
 					deleted = true;
 					//无法找到支持, 删除(v, a)
 					//cout << "name: " << Id() << ", delete: " << v->Id() << "," << a << endl;
-					v->Remove(a);
+					//v->Remove(a);
+					last_mask_[vv] &= Constants::MASK0[a];
 					//BIT_CLEAR(last_mask_[vv], a);
 				}
 			}
 		}
 
 		if (deleted) {
+			helper->var_stamp[v->Id()] = helper->global_stamp + 1;
+			auto mask = v->SubmitMaskAndGet(last_mask_[vv]);
 			//v->SubmitMaskAndGet(last_mask_[vv]);
-			last_mask_[vv] = v->SimpleMask();
-			old_mask_[vv] = last_mask_[vv];
-			y.push_back(v);
+			//last_mask_[vv] = v->SimpleMask();
+			//old_mask_[vv] = last_mask_[vv];
+			//y.push_back(v);
 
 			if (v->IsEmpty()) {
+				helper->is_consistent = false;
 				return false;
 			}
+
+			old_mask_[vv] = last_mask_[vv];
 		}
 	}
 
@@ -160,5 +173,6 @@ void TablePCT::BackLevel() {
 	}
 }
 
+void TablePCT::operator()() const {}
 }
 

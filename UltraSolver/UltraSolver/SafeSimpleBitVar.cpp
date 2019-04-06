@@ -1,8 +1,8 @@
 ﻿#include "SafeSimpleBitVar.h"
 namespace cp {
 SafeSimpleBitVar::SafeSimpleBitVar(string& name, const int id, const int num_vars, vector<int>& values,
-								   SearchHelper& helper) :
-	Var(name, id, num_vars, values, helper),
+								   PSearchHelper& helper) :
+	PVar(name, id, num_vars, values, helper),
 	limit_(capacity_),
 	num_level_(capacity_ + 3),
 	size_level_(vector<int>(num_level_, -1)),
@@ -10,6 +10,7 @@ SafeSimpleBitVar::SafeSimpleBitVar(string& name, const int id, const int num_var
 	size_level_[0] = capacity_;
 	bit_doms_[0] = Constants::kALLONELONG << (Constants::BITSIZE - limit_);
 }
+
 
 inline int SafeSimpleBitVar::NewLevel() {
 	const auto prev_level = level_++;

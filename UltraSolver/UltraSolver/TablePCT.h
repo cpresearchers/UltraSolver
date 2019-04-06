@@ -11,7 +11,7 @@ public:
 	vector<std::vector<int>> tuples;
 
 	TablePCT(const int id, const int arity, const int num_vars, vector<PVar*> scope, vector<vector<int>>& tuples,
-					  PSearchHelper& helper);
+			 PSearchHelper& helper);
 
 	//ºÏ≤È±‰¡ø
 	bool InitGAC();
@@ -25,6 +25,8 @@ public:
 	void NewLevel() override;
 
 	void BackLevel() override;
+
+	void operator()() const;
 private:
 	int num_bit_;
 

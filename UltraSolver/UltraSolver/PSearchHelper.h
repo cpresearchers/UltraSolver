@@ -54,6 +54,13 @@ public:
 		}
 	}
 
+	void  AddToCevt(PPropagator* c) {
+		if (in_cevt[c->Id()] == 0) {
+			pool->emplace(move(*c));
+			in_cevt[c->Id()].store(1);
+		}
+	}
+
 protected:
 	int num_vars_ = 0;
 	int num_tabs_ = 0;

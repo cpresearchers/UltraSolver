@@ -25,6 +25,7 @@ public:
 	void NewLevel() override;
 
 	void BackLevel() override;
+
 private:
 	int num_bit_;
 

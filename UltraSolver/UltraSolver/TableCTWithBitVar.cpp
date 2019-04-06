@@ -162,4 +162,6 @@ void TableCTWithBitVar::BackLevel() {
 	}
 }
 
+void TableCTWithBitVar::operator()() {}
+
 }
