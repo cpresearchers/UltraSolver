@@ -26,7 +26,10 @@ protected:
 };
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 16cc9ff... 1121
 =======
 >>>>>>> parent of 16cc9ff... 1121
 =======
