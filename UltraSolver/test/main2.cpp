@@ -64,7 +64,6 @@ public:
 	A() {};
 	A(string& xi) :xixi(xi) {}
 	void operator()() const { cout << xixi; }
-	void show() { cout << xixi; }
 };
 int main() {
 	string a1 = "xixi\n";
@@ -82,27 +81,23 @@ int main() {
 	auto aa = taskflow.emplace(a);
 	auto bb = taskflow.emplace(b);
 	taskflow.wait_for_all();
-	tf::Taskflow taskflow2(1);
-	taskflow2.emplace(std::move(a));
-	taskflow2.emplace(std::ref(*c));
-	taskflow2.wait_for_all();
-	//aa = taskflow.emplace(a);
-	//bb = taskflow.emplace(b);
-	//bb = taskflow.emplace(b);
-	//aa = taskflow.emplace(a);
-	//bb = taskflow.emplace(b);
-	//bb = taskflow.emplace(b);
-	//aa = taskflow.emplace(a);
-	//bb = taskflow.emplace(b);
-	////taskflow.wait_for_all();
-	//bb = taskflow.emplace(b);	aa = taskflow.emplace(a);
-	//bb = taskflow.emplace(b);
-	//bb = taskflow.emplace(b);	aa = taskflow.emplace(a);
-	//bb = taskflow.emplace(b);
-	//bb = taskflow.emplace(b);
+	aa = taskflow.emplace(a);
+	bb = taskflow.emplace(b);
+	bb = taskflow.emplace(b);
+	aa = taskflow.emplace(a);
+	bb = taskflow.emplace(b);
+	bb = taskflow.emplace(b);
+	aa = taskflow.emplace(a);
+	bb = taskflow.emplace(b);
+	//taskflow.wait_for_all();
+	bb = taskflow.emplace(b);	aa = taskflow.emplace(a);
+	bb = taskflow.emplace(b);
+	bb = taskflow.emplace(b);	aa = taskflow.emplace(a);
+	bb = taskflow.emplace(b);
+	bb = taskflow.emplace(b);
 	//taskflow.wait_for_all();
 
 	//tf::WorkStealingThreadpool<shared_ptr<A>> pool(3);
 	//pool
-	return 0;
+		return 0;
 }
