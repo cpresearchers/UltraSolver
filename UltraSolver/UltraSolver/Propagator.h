@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Var.h"
-
 namespace cp {
 using namespace std;
 class Propagator {
@@ -24,18 +23,5 @@ protected:
 	vector<int> values_;
 	int id_;
 };
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
 }
 

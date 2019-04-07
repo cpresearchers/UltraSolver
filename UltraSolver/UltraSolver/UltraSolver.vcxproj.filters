@@ -54,36 +54,6 @@
     <ClInclude Include="TableCTWithBitVar.h">
       <Filter>include</Filter>
     </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClInclude Include="TablePCT.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PSearchHelper.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PPropagator.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PSolver.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PCoarseSolver.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleBitVar.h">
-      <Filter>include</Filter>
-    </ClInclude>
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp">
@@ -110,29 +80,5 @@
     <ClCompile Include="TableCTWithBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClCompile Include="TablePCT.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PSolver.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PCoarseSolver.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleBitVar.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
-=======
->>>>>>> parent of 16cc9ff... 1121
   </ItemGroup>
 </Project>
