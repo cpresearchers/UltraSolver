@@ -57,6 +57,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="TablePCT.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -75,6 +76,8 @@
     <ClInclude Include="SimpleBitVar.h">
       <Filter>include</Filter>
     </ClInclude>
+=======
+>>>>>>> parent of 16cc9ff... 1121
 =======
 >>>>>>> parent of 16cc9ff... 1121
 =======
@@ -110,6 +113,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="TablePCT.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -122,6 +126,8 @@
     <ClCompile Include="SimpleBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
+=======
+>>>>>>> parent of 16cc9ff... 1121
 =======
 >>>>>>> parent of 16cc9ff... 1121
 =======
