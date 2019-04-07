@@ -1,23 +1,14 @@
 ﻿#pragma once
 #ifdef _MSC_VER
 #include <intrin.h>
-//#define BitCount __popcnt
-//#define BitCount64 __popcnt64
-//#define CLZ64 __lzcnt64
-inline int BitCount(const int a) {
-	return __popcnt(a);
-};
-inline int BitCount64(const uint64_t a) {
-	return __popcnt64(a);
-};
-inline int CLZ64(const uint64_t a) {
-	return __lzcnt64(a);
-};
+#define BitCount __popcnt
+#define BitCount64 __popcnt64
+#define CLZ64 __lzcnt64
 //#define CTZ64(a) (a & a)
-inline int CTZ64(const uint64_t a) {
+inline int CTZ64(const int a) {
 	unsigned long b;
 	const auto c = _BitScanForward64(&b, a);
-	return c ? 63 - b : 64;
+	return c ? b : -1;
 };
 #endif
 
