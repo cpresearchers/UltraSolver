@@ -1,34 +1,5 @@
 ﻿#pragma once
-#ifdef _MSC_VER
-#include <intrin.h>
-#define BitCount __popcnt
-#define BitCount64 __popcnt64
-#define CLZ64 __lzcnt64
-//#define CTZ64(a) (a & a)
-inline int CTZ64(const int a) {
-	unsigned long b;
-	const auto c = _BitScanForward64(&b, a);
-	return c ? b : -1;
-};
-#endif
-
-#ifdef __GNUC__
-#define BitCount __builtin_popcount 
-#define BitCount64 __builtin_popcountll
-#endif
-
-/* a=target variable, b=bit number to act upon 0-n */
-#define BIT_SET(a,b) ((a) |= (1ULL<<(b)))
-#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
-#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
-#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b))))        // '!!' to make sure this returns 0 or 1
-
-/* x=target variable, y=mask */
-#define BITMASK_SET(x,y) ((x) |= (y))
-#define BITMASK_CLEAR(x,y) ((x) &= (~(y)))
-#define BITMASK_FLIP(x,y) ((x) ^= (y))
-#define BITMASK_CHECK_ALL(x,y) (((x) & (y)) == (y))   // warning: evaluates y twice
-#define BITMASK_CHECK_ANY(x,y) ((x) & (y))
+#include <vector>
 
 namespace cp {
 
@@ -59,6 +30,42 @@ inline int GetIndex(const Index2D& index2D) {
 }
 }
 
+#ifdef _MSC_VER
+#include <intrin.h>
+inline int BitCount(const int a) {
+	return __popcnt(a);
+};
+inline int BitCount64(const uint64_t a) {
+	return __popcnt64(a);
+};
+inline int CLZ64(const uint64_t a) {
+	return __lzcnt64(a);
+};
+inline int CTZ64(const uint64_t a) {
+	unsigned long b;
+	const auto c = _BitScanForward64(&b, a);
+	return c ? 63 - b : 64;
+};
+#endif
+
+#ifdef __GNUC__
+#define BitCount __builtin_popcount 
+#define BitCount64 __builtin_popcountll
+#endif
+
+/* a=target variable, b=bit number to act upon 0-n */
+#define BIT_SET(a,b) ((a) |= (1ULL<<(b)))
+#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
+#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
+#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b))))        // '!!' to make sure this returns 0 or 1
+
+/* x=target variable, y=mask */
+#define BITMASK_SET(x,y) ((x) |= (y))
+#define BITMASK_CLEAR(x,y) ((x) &= (~(y)))
+#define BITMASK_FLIP(x,y) ((x) ^= (y))
+#define BITMASK_CHECK_ALL(x,y) (((x) & (y)) == (y))   // warning: evaluates y twice
+#define BITMASK_CHECK_ANY(x,y) ((x) & (y))
+
 //inline int BitCount64(u64& i) {
 //	return __builtin_popcountll(i);
 //}
@@ -72,10 +79,11 @@ inline bool Has(const u64 b, const int a) {
 	return !(!(b & Constants::MASK1[a]));
 }
 
+
 inline void GetValues(u64 b, std::vector<int>& values) {
 	values.clear();
 	for (int i = CLZ64(b), end = CTZ64(b); i <= end; ++i) {
-		if (b & Constants::MASK1[i]) {
+		if (Has(b, i)) {
 			values.push_back(i);
 		}
 	}

@@ -1,10 +1,16 @@
 ﻿#pragma once
+#include <utility>
 #include "Var.h"
 namespace cp {
 using namespace std;
 class Propagator {
 public:
-	Propagator(const int id, const int num_vars, vector<Var*>& scope, SearchHelper& helper) :arity(scope.size()), num_vars(num_vars), scope(scope), helper(&helper), id_(id) {};
+	Propagator(const int id, const int num_vars, vector<Var*>& scope, shared_ptr<SearchHelper>&& helper) :
+		arity(scope.size()),
+		num_vars(num_vars),
+		scope(scope),
+		helper(helper),
+		id_(id) {};
 	virtual ~Propagator() = default;
 	inline int Id() const { return id_; };
 	int arity;
@@ -13,7 +19,8 @@ public:
 	int num_assigned = 0;
 	int num_vars = 0;
 	vector<Var*> scope;
-	SearchHelper* helper;
+	//SearchHelper* helper;
+	const shared_ptr<SearchHelper> helper;
 	virtual bool propagate(vector<Var*>& x_evt) = 0;
 	virtual void NewLevel() = 0;
 	virtual void BackLevel() = 0;

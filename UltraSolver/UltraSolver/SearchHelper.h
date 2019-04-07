@@ -1,9 +1,7 @@
 ﻿#pragma once
 #include <vector>
-#include <taskflow/threadpool/threadpool.hpp>
 #include "typedef.h"
 #include "HModel.h"
-#include <taskflow/taskflow.hpp>
 
 using namespace std;
 
@@ -32,11 +30,17 @@ public:
 
 	vector<vector<Propagator*>> subscription;
 
-	void Initial(HModel& m) {
-		var_stamp.resize(m.vars.size(), 0);
-		tab_stamp.resize(m.tabs.size(), 0);
-		subscription.resize(m.tabs.size());
-	}
+	SearchHelper(const HModel& m) :
+		tab_stamp(vector<u64>(m.tabs.size(), 0)),
+		var_stamp(vector<u64>(m.vars.size(), 0)),
+		subscription(vector<vector<Propagator*>>(m.vars.size())) {}
+
+	//void Initial(HModel& m) {
+	//	var_stamp.resize(m.vars.size(), 0);
+	//	tab_stamp.resize(m.tabs.size(), 0);
+	//	subscription.resize(m.tabs.size());
+	//}
 };
+
 
 }

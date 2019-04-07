@@ -1,5 +1,5 @@
 #include "CoarseSolver.h"
-#include "SafeSimpleBitVar.h"
+#include "SimpleBitVar.h"
 #include "TableCTWithBitVar.h"
 
 
@@ -9,19 +9,21 @@ CoarseSolver::CoarseSolver(HModel& hm, string& propagator_type, string& var_type
 	Solver(hm, propagator_type, var_type, heu_type) {
 	Q_.reset(new CoarseQueue<Var*>(num_vars));
 	Y_evt_.reserve(m->max_arity());
-
+	//q = new CoarseQueue<Var*>(num_vars);
+	//q.Initial(num_vars);
 	vars.reserve(num_vars);
 	tabs.reserve(num_tabs);
+
 	if (var_type_ == "SparseSet") {
 		for (size_t i = 0; i < num_vars; i++) {
 			auto xv = m->vars[i];
-			vars.push_back(new SparseSetVar(xv->name, xv->id, num_vars, xv->vals, helper));
+			vars.push_back(new SparseSetVar(xv->name, xv->id, num_vars, xv->vals, std::move(helper)));
 		}
 	}
-	else if (var_type_ == "SSBV") {
+	else if (var_type_ == "SBV") {
 		for (size_t i = 0; i < num_vars; i++) {
 			auto xv = m->vars[i];
-			vars.push_back(new SafeSimpleBitVar(xv->name, xv->id, num_vars, xv->vals, helper));
+			vars.push_back(new SimpleBitVar(xv->name, xv->id, num_vars, xv->vals, std::move(helper)));
 		}
 	}
 
@@ -34,10 +36,10 @@ CoarseSolver::CoarseSolver(HModel& hm, string& propagator_type, string& var_type
 				scope[j] = vars[xc->scope[j]->id];
 			}
 
-			tabs.emplace_back(new TableCT(xc->id, xc->scope.size(), num_vars, scope, xc->tuples, helper));
+			tabs.emplace_back(new TableCT(xc->id, xc->scope.size(), num_vars, scope, xc->tuples, std::move(helper)));
 
 			for (auto v : scope) {
-				helper.subscription[v->Id()].push_back(tabs[i]);
+				helper->subscription[v->Id()].push_back(tabs[i]);
 			}
 		}
 	}
@@ -50,10 +52,10 @@ CoarseSolver::CoarseSolver(HModel& hm, string& propagator_type, string& var_type
 				scope[j] = vars[xc->scope[j]->id];
 			}
 
-			tabs.emplace_back(new TableCTWithBitVar(xc->id, xc->scope.size(), num_vars, scope, xc->tuples, helper));
+			tabs.emplace_back(new TableCTWithBitVar(xc->id, xc->scope.size(), num_vars, scope, xc->tuples, std::move(helper)));
 
 			for (auto v : scope) {
-				helper.subscription[v->Id()].push_back(tabs[i]);
+				helper->subscription[v->Id()].push_back(tabs[i]);
 			}
 		}
 	}
@@ -84,8 +86,8 @@ bool CoarseSolver::propagate(vector<Var*>& x_evt) {
 
 	while (!Q_->IsEmpty()) {
 		const auto v = Q_->pop();
-		for (auto c : helper.subscription[v->Id()]) {
-			if (helper.var_stamp[v->Id()] > helper.tab_stamp[c->Id()]) {
+		for (auto c : helper->subscription[v->Id()]) {
+			if (helper->var_stamp[v->Id()] > helper->tab_stamp[c->Id()]) {
 				Y_evt_.clear();
 				const auto consistent = c->propagate(Y_evt_);
 				if (!consistent) {
@@ -96,8 +98,8 @@ bool CoarseSolver::propagate(vector<Var*>& x_evt) {
 						insert(y);
 					}
 				}
-				helper.global_stamp++;
-				helper.tab_stamp[c->Id()] = helper.global_stamp;
+				helper->global_stamp++;
+				helper->tab_stamp[c->Id()] = helper->global_stamp;
 			}
 		}
 	}
@@ -106,7 +108,7 @@ bool CoarseSolver::propagate(vector<Var*>& x_evt) {
 
 void CoarseSolver::insert(Var* x) {
 	Q_->push(x);
-	++helper.global_stamp;
-	helper.var_stamp[x->Id()] = helper.global_stamp;
+	++helper->global_stamp;
+	helper->var_stamp[x->Id()] = helper->global_stamp;
 }
 }

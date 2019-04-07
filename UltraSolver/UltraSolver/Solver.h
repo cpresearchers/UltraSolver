@@ -14,7 +14,8 @@ public:
 	const int num_tabs;
 	vector<Var*> vars;
 	vector<Propagator*> tabs;
-	SearchHelper helper;
+	//SearchHelper helper;
+	shared_ptr<SearchHelper> helper;
 	AssignedStack<Val> I;
 	HModel* m;
 
@@ -26,7 +27,8 @@ public:
 		num_tabs(m.tabs.size()),
 		m(&m) {
 		I.Initial(num_vars);
-		helper.Initial(m);
+		//helper.Initial(m);
+		helper.reset(new SearchHelper(m));
 		level_V_dense_.resize(num_vars, 0);
 		level_V_sparse_.resize(num_vars, 0);
 		for (size_t i = 0; i < num_vars; i++) {
@@ -46,21 +48,21 @@ public:
 
 		if (!consistent) {
 			finished = false;
-			helper.time = t.elapsed() - start;
+			helper->time = t.elapsed() - start;
 		}
 
 		while (!finished) {
 			//超时
 			if (t.elapsed() > time_limit) {
-				helper.time = t.elapsed() - start;
+				helper->time = t.elapsed() - start;
 			}
 
 			// 选值 
 			Val v_a = SelectVal();
-			++helper.nodes;
+			++helper->nodes;
 			NewLevel();
 			I.push(v_a);
-			//cout << "push: " << v_a << ", " << helper.nodes << endl;
+			cout << "push: " << v_a << ", " << helper->nodes << endl;
 
 			////选出的变量论域大小为1
 			//if (v_a.v->Size() != 1 && consistent) {
@@ -71,7 +73,7 @@ public:
 			//}
 
 			if (consistent && I.full()) {
-				helper.time = t.elapsed() - start;
+				helper->time = t.elapsed() - start;
 				I.show();
 				finished = true;
 				return;
@@ -79,7 +81,7 @@ public:
 
 			while (!consistent && !I.empty()) {
 				v_a = I.pop();
-				//cout << "pop:  " << v_a << ", " << helper.nodes << endl;
+				cout << "pop:  " << v_a << ", " << helper->nodes << endl;
 
 				BackLevel();
 				//选出的变量论域大小不为1
@@ -95,11 +97,11 @@ public:
 			}
 		}
 
-		helper.time = t.elapsed() - start;
+		helper->time = t.elapsed() - start;
 	};
 
 	void  NewLevel() {
-		++helper.level;
+		++helper->level;
 		for (auto v : vars) {
 			v->NewLevel();
 		}
@@ -110,7 +112,7 @@ public:
 	}
 
 	void BackLevel() {
-		--helper.level;
+		--helper->level;
 		for (auto v : vars) {
 			v->BackLevel();
 		}
@@ -126,12 +128,12 @@ public:
 		double mindmdd = DBL_MAX;
 		Var* minv = nullptr;
 
-		for (auto i = helper.level; i < num_vars; ++i) {
+		for (auto i = helper->level; i < num_vars; ++i) {
 			const auto vid = level_V_dense_[i];
 			auto  v = vars[vid];
 			double ddeg = 0.0;
 
-			for (auto c : helper.subscription[vid]) {
+			for (auto c : helper->subscription[vid]) {
 				if (c->bind_count + 1 < c->arity) {
 					ddeg++;
 				}
@@ -155,15 +157,15 @@ public:
 	void Bind(Val& v_a) {
 		//在稀疏集上交换变量
 		const auto minvi = level_V_sparse_[v_a.v->Id()];
-		const auto a = level_V_dense_[helper.level - 1];
-		level_V_dense_[helper.level - 1] = level_V_dense_[minvi];
+		const auto a = level_V_dense_[helper->level - 1];
+		level_V_dense_[helper->level - 1] = level_V_dense_[minvi];
 
 		level_V_sparse_[a] = minvi;
-		level_V_sparse_[level_V_dense_[minvi]] = helper.level - 1;
+		level_V_sparse_[level_V_dense_[minvi]] = helper->level - 1;
 
 		level_V_dense_[minvi] = a;
 
-		for (auto c : helper.subscription[v_a.v->Id()]) {
+		for (auto c : helper->subscription[v_a.v->Id()]) {
 			c->bind_count++;
 		}
 
@@ -172,7 +174,7 @@ public:
 
 	void Remove(Val& v_a) {
 		//约束的已实例化变量个数减1
-		for (auto c : helper.subscription[v_a.v->Id()]) {
+		for (auto c : helper->subscription[v_a.v->Id()]) {
 			c->bind_count--;
 		}
 		v_a.v->Remove(v_a.a);

@@ -11,7 +11,7 @@ public:
 	vector<vector<int>> tuples;
 
 	TableCT(const int id, const int arity, const int num_vars, vector<Var*> scope, vector<vector<int>>& tuples,
-	        SearchHelper& helper);
+			shared_ptr<SearchHelper>&& helper);
 
 	//检查变量
 	bool InitGAC();

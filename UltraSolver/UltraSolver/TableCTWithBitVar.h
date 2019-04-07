@@ -11,7 +11,7 @@ public:
 	vector<std::vector<int>> tuples;
 
 	TableCTWithBitVar(const int id, const int arity, const int num_vars, vector<Var*> scope, vector<vector<int>>& tuples,
-					  SearchHelper& helper);
+					  shared_ptr<SearchHelper>&& helper);
 
 	//检查变量
 	bool InitGAC();
@@ -32,7 +32,6 @@ private:
 	unique_ptr<RSBitSet> curr_table_;
 	vector<vector<vector<u64>>> supports_;
 	vector<vector<int>> residues_;
-	vector<PVar*> pscope ;
 	vector<int> Ssup_;
 	vector<int> Sval_;
 	vector<u64> last_mask_;

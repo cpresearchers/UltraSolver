@@ -24,12 +24,12 @@ int main() {
 	//string propagator_name = "CT";
 	string propagator_name = "CTBT";
 	//string var_name = "SparseSet";
-	string var_name = "SSBV";
+	string var_name = "SBV";
 	string heu_name;
 	CoarseSolver ct(m, propagator_name, var_name, heu_name);
 	ct.Search(time_limit);
-	cout << "time: " << ct.helper.time << endl;
-	cout << "nodes: " << ct.helper.nodes << endl;
+	cout << "time: " << ct.helper->time << endl;
+	cout << "nodes: " << ct.helper->nodes << endl;
 	return 0;
 }
 

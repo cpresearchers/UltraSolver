@@ -17,7 +17,7 @@ public:
 		in_stack_.resize(max_size_, false);
 	}
 
-	~CoarseQueue() {};
+	~CoarseQueue() {}
 
 	bool IsFull() const {
 		return front_ == (rear_ + 1) % max_size_;

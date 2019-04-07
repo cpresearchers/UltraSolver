@@ -1,12 +1,15 @@
 ﻿#pragma once
 #include "Var.h"
-#include <typedef.h>
 #include <atomic>
 
 namespace cp {
-class SimpleBitVar :public cp::Var {
+
+/**
+ * \brief 用于论域小于64的变量
+ */
+class SimpleBitVar :public Var {
 public:
-	SimpleBitVar(string& name, const int id, const int num_vars, vector<int>& values, cp::SearchHelper& helper);
+	SimpleBitVar(string& name, const int id, const int num_vars, vector<int>& values, shared_ptr<SearchHelper>&& helper);
 	int NewLevel() override;
 	int BackLevel() override;
 	int Size() override;
@@ -26,7 +29,7 @@ public:
 	u64 SubmitMask(const u64 mask) override;
 	u64 SubmitMaskAndGet(const u64 mask) override;
 	u64 GetAndSubmitMask(const u64 mask) override;
-	~SimpleBitVar() override {};
+	~SimpleBitVar() {};
 
 protected:
 	int limit_;
@@ -35,6 +38,8 @@ protected:
 	atomic<u64> bit_mark_;
 	vector<atomic<u64>> bit_doms_;
 	//atomic<int> curr_size_;
-
 };
+
+
+
 }

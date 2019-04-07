@@ -4,9 +4,18 @@
 
 namespace cp {
 using namespace std;
+//SparseSetVar::SparseSetVar(string& name, const int id, const int num_vars, vector<int>& vals,
+//						   SearchHelper& helper) :
+//	Var(name, id, num_vars, vals, helper), mark(0) {
+//	dense = vals;
+//	sparse = vals;
+//	size_level.resize(num_vars_ + 1, -1);
+//	size_level[0] = vals.size();
+//}
+
 SparseSetVar::SparseSetVar(string& name, const int id, const int num_vars, vector<int>& vals,
-						   SearchHelper& helper) :
-	Var(name, id, num_vars, vals, helper), mark(0) {
+						   shared_ptr<SearchHelper>&& helper) :
+	Var(name, id, num_vars, vals, std::move(helper)), mark(0) {
 	dense = vals;
 	sparse = vals;
 	size_level.resize(num_vars_ + 1, -1);
@@ -52,6 +61,22 @@ inline void SparseSetVar::swap(const int i, const int j) {
 
 	sparse[dense[i]] = i;
 	sparse[dense[j]] = j;
+}
+
+u64 SparseSetVar::SimpleMask() {
+	return 0;
+}
+
+u64 SparseSetVar::SubmitMask(const u64 mask) {
+	return 0;
+}
+
+u64 SparseSetVar::SubmitMaskAndGet(const u64 mask) {
+	return 0;
+}
+
+u64 SparseSetVar::GetAndSubmitMask(const u64 mask) {
+	return 0;
 }
 
 void SparseSetVar::Remove(const int a) {
@@ -115,7 +140,7 @@ int SparseSetVar::NextValue(const int a) {
 	return Constants::INDEXOVERFLOW;
 }
 
-void SparseSetVar::GetLastRemoveValues(const u64 last, vector<int>& values) {
+void SparseSetVar::GetLastRemoveValues(const u64 last, vector<int> & values) {
 	values.clear();
 	if (last <= Size())
 		return;

@@ -48,10 +48,16 @@
     <ClInclude Include="CoarseQueue.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="SafeSimpleBitVar.h">
+    <ClInclude Include="TableCTWithBitVar.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="TableCTWithBitVar.h">
+    <ClInclude Include="SimpleBitVar.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PSearchHelper.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PPropagator.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,10 +80,16 @@
     <ClCompile Include="RSBitSet.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="SafeSimpleBitVar.cpp">
+    <ClCompile Include="TableCTWithBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="TableCTWithBitVar.cpp">
+    <ClCompile Include="SimpleBitVar.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PSearchHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PPropagator.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

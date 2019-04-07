@@ -28,6 +28,7 @@ public:
 protected:
 
 	unique_ptr<CoarseQueue<Var*>> Q_;
+	//CoarseQueue<Var*> q;
 	vector<Var*> Y_evt_;
 };
 }

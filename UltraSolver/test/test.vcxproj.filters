@@ -24,5 +24,11 @@
     <ClCompile Include="threadpool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="threadpool_cxx14.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dynamic_traversal.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

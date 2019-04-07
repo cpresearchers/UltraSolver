@@ -1,8 +1,8 @@
 ﻿#include "TableCT.h"
 namespace cp {
 TableCT::TableCT(const int id, const int arity, const int num_vars, vector<Var*> scope, vector<vector<int>>& tuples,
-				 SearchHelper& helper) :
-	Propagator(id, num_vars, scope, helper), tuples(tuples) {
+				 shared_ptr<SearchHelper>&& helper) :
+	Propagator(id, num_vars, scope, std::move(helper)), tuples(tuples) {
 	curr_table_.reset(new RSBitSet(tuples.size(), num_vars));
 	num_bit_ = int(ceil(double(tuples.size()) / double(Constants::BITSIZE)));
 	supports_.resize(arity);
