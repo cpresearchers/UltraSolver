@@ -24,6 +24,9 @@ protected:
 	vector<int> values_;
 	int id_;
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 16cc9ff... 1121
 }
 

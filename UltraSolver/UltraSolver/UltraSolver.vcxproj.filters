@@ -54,6 +54,7 @@
     <ClInclude Include="TableCTWithBitVar.h">
       <Filter>include</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="TablePCT.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -72,6 +73,8 @@
     <ClInclude Include="SimpleBitVar.h">
       <Filter>include</Filter>
     </ClInclude>
+=======
+>>>>>>> parent of 16cc9ff... 1121
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitSet.cpp">
@@ -98,6 +101,7 @@
     <ClCompile Include="TableCTWithBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="TablePCT.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -110,5 +114,7 @@
     <ClCompile Include="SimpleBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
+=======
+>>>>>>> parent of 16cc9ff... 1121
   </ItemGroup>
 </Project>

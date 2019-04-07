@@ -36,7 +36,6 @@
     <ClInclude Include="SparseSet.h" />
     <ClInclude Include="TableCT.h" />
     <ClInclude Include="TableCTWithBitVar.h" />
-    <ClInclude Include="TablePCT.h" />
     <ClInclude Include="Var.h" />
   </ItemGroup>
   <ItemGroup>
@@ -51,7 +50,6 @@
     <ClCompile Include="SparseSetVar.cpp" />
     <ClCompile Include="TableCT.cpp" />
     <ClCompile Include="TableCTWithBitVar.cpp" />
-    <ClCompile Include="TablePCT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XModel\XModel.vcxproj">
