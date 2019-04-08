@@ -62,7 +62,7 @@ public:
 			++helper->nodes;
 			NewLevel();
 			I.push(v_a);
-			cout << "push: " << v_a << ", " << helper->nodes << endl;
+			//cout << "push: " << v_a << ", " << helper->nodes << endl;
 
 			////选出的变量论域大小为1
 			//if (v_a.v->Size() != 1 && consistent) {
@@ -81,7 +81,7 @@ public:
 
 			while (!consistent && !I.empty()) {
 				v_a = I.pop();
-				cout << "pop:  " << v_a << ", " << helper->nodes << endl;
+				//cout << "pop:  " << v_a << ", " << helper->nodes << endl;
 
 				BackLevel();
 				//选出的变量论域大小不为1

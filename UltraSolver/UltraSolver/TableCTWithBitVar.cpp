@@ -117,7 +117,7 @@ bool TableCTWithBitVar::FilterDomains(vector<Var*> & y) {
 				else {
 					deleted = true;
 					//无法找到支持, 删除(v, a)
-					cout << "name: " << Id() << ", delete: " << v->Id() << "," << a << endl;
+					//cout << "name: " << Id() << ", delete: " << v->Id() << "," << a << endl;
 					v->Remove(a);
 					//BIT_CLEAR(last_mask_[vv], a);
 				}
