@@ -47,11 +47,6 @@
     <ClCompile Include="TableCT.cpp" />
     <ClCompile Include="TableCTWithBitVar.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XModel\XModel.vcxproj">
-      <Project>{0218e728-4360-48a8-94af-8efc0226a22b}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{B33408B4-BF5A-4115-8BB7-D6022CF952C1}</ProjectGuid>
