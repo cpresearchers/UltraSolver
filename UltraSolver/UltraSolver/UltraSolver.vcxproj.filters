@@ -57,7 +57,7 @@
     <ClInclude Include="PSearchHelper.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="PPropagator.h">
+    <ClInclude Include="SafeSimpleBitVar.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,19 +77,13 @@
     <ClCompile Include="CoarseSolver.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="RSBitSet.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="TableCTWithBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="SimpleBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="PSearchHelper.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PPropagator.cpp">
+    <ClCompile Include="SafeSimpleBitVar.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

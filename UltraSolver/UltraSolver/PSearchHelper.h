@@ -1,17 +1,96 @@
 ﻿#pragma once
-#include <taskflow/threadpool/threadpool.hpp>
 #include <taskflow/taskflow.hpp>  // Cpp-Taskflow is header-only
 #include "typedef.h"
-#include "Propagator.h"
 #include "HModel.h"
-//#include <taskflow/taskflow.hpp>  // Cpp-Taskflow is header-only
-#include "PPropagator.h"
-#include <atomic>
-
 
 namespace cp {
 using namespace std;
 using Closure = std::function<void()>;
+class PSearchHelper;
+
+class PVar {
+public:
+	PVar(string& name, const int id, const int num_vars, vector<int>& values,
+		 shared_ptr<PSearchHelper>&& helper) :
+		helper(helper),
+		name_(name),
+		id_(id),
+		num_vars_(num_vars),
+		values_(values),
+		capacity_(values.size()) {};
+	int Id() const { return id_; }
+	int Capacity() const { return capacity_; }
+	//vector<int> last_remove_values;
+	//vector<int> valid_values;
+
+	virtual int NewLevel() = 0;
+	virtual int BackLevel() = 0;
+	virtual int Size() = 0;
+	virtual void Bind(const int a) = 0;
+	inline bool IsBind() const { return bind_level_ != Constants::kINTMAX; };
+	//inline bool IsBindOrLastPast() const { return bind_level_ <= level_; };
+	inline bool IsLastPast() const { return bind_level_ == level_; };
+	inline bool NeedFilterDomain() const { return level_ <= bind_level_; };
+	virtual void Remove(const int a) = 0;
+	virtual bool IsEmpty() = 0;
+	virtual void Restrict() = 0;
+	virtual void Mark(const int a) = 0;
+	virtual bool FullMark() = 0;
+	int BindLevel() const { return bind_level_; }
+	virtual bool Contains(const int a) = 0;
+	virtual int MinValue() = 0;
+	virtual int MaxValue() = 0;
+	virtual int NextValue(const int a) = 0;
+	//vector<int>& values
+	//virtual void GetLastRemoveValues(const int last) = 0;
+	//virtual void GetValidValues() = 0;
+	virtual void GetLastRemoveValues(const u64 last, vector<int>& values) = 0;
+	virtual void GetValidValues(vector<int>& values) = 0;
+	virtual u64 SimpleMask() = 0;
+	virtual u64 SubmitMask(const u64 mask) = 0;
+	virtual u64 SubmitMaskAndGet(const u64 mask) = 0;
+	virtual u64 GetAndSubmitMask(const u64 mask) = 0;
+	const shared_ptr<PSearchHelper> helper;
+
+protected:
+	string name_;
+	int id_;
+	int num_vars_;
+	vector<int> values_;
+	int level_ = 0;
+	int capacity_ = 0;
+	int bind_level_ = Constants::kINTMAX;
+};
+
+class PPropagator {
+public:
+	PPropagator(const int id, const int num_vars, vector<PVar*>& scope, shared_ptr<PSearchHelper>&& helper) :
+		arity(scope.size()),
+		num_vars(num_vars),
+		scope(scope),
+		helper(helper),
+		id_(id) {};
+	virtual ~PPropagator() = default;
+	inline int Id() const { return id_; };
+	int arity;
+	int bind_count = 0;
+	int level = 0;
+	int num_assigned = 0;
+	int num_vars = 0;
+	vector<PVar*> scope;
+	//SearchHelper* helper;
+	const shared_ptr<PSearchHelper> helper;
+	virtual bool propagate(vector<PVar*>& x_evt) = 0;
+	virtual void NewLevel() = 0;
+	virtual void BackLevel() = 0;
+
+protected:
+	// last remove values and valid values
+	vector<int> values_;
+	int id_;
+
+};
+
 class PSearchHelper {
 public:
 	// 各时间戳
@@ -46,7 +125,7 @@ public:
 	PSearchHelper(HModel& m, const int parallelism) :
 		tab_stamp(vector<u64>(m.tabs.size(), 0)),
 		var_stamp(vector<u64>(m.vars.size(), 0)),
-		subscription(vector<vector<PPropagator*>>(m.vars.size())),
+		//subscription(vector<vector<PPropagator*>>(m.vars.size())),
 		//pool(parallelism),
 		//pool(tf::Taskflow(parallelism)),
 		pool(tf::Taskflow(parallelism)),
