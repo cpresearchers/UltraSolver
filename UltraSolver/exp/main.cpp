@@ -4,6 +4,7 @@
 #include "BMFileParser.h"
 #include "Timer.h"
 #include "CoarseSolver.h"
+#include <PSearchHelper.h>
 using namespace XCSP3Core;
 using namespace cp;
 

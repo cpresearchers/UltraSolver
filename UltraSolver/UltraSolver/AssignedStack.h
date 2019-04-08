@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "Var.h"
+#include "SafeSimpleBitVar.h"
+
 namespace cp {
 using namespace std;
 
@@ -9,21 +11,10 @@ public:
 	int a;
 };
 
-//class PVal {
-//public:
-//	PVar* v;
-//	int a;
-//};
-
 inline ostream& operator<<(ostream& os, Val& va) {
 	os << va.v->Id() << ", " << va.a << " ";
 	return os;
 }
-
-//inline ostream& operator<<(ostream& os, PVal& va) {
-//	os << va.v->Id() << ", " << va.a << " ";
-//	return os;
-//}
 
 template<class T>
 class AssignedStack {

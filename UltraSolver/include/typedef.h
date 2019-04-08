@@ -1,7 +1,48 @@
 ﻿#pragma once
 #include <vector>
+//#include <ppltasks.h>
+//#include <intrin.h>
+
+#ifdef _MSC_VER
+#include <intrin.h>
+//#include <taskflow/graph/basic_taskflow.hpp>
+inline int BitCount(const int a) {
+	return __popcnt(a);
+};
+inline int BitCount64(const uint64_t a) {
+	return __popcnt64(a);
+};
+inline int CLZ64(const uint64_t a) {
+	return __lzcnt64(a);
+};
+inline int CTZ64(const uint64_t a) {
+	unsigned long b;
+	const auto c = _BitScanForward64(&b, a);
+	return c ? 63 - b : 64;
+};
+#endif
+
+#ifdef __GNUC__
+inline int BitCount(const int a) {
+	return __builtin_popcount(a);
+};
+inline int BitCount64(const uint64_t a) {
+	return __builtin_popcountll(a);
+};
+inline int CLZ64(const uint64_t a) {
+	return __lzcnt64(a);
+};
+inline int CTZ64(const uint64_t a) {
+	unsigned long b;
+	const auto c = _BitScanForward64(&b, a);
+	return c ? 63 - b : 64;
+};
+#endif
 
 namespace cp {
+
+
+
 
 typedef unsigned long long u64;
 
@@ -30,28 +71,7 @@ inline int GetIndex(const Index2D& index2D) {
 }
 }
 
-#ifdef _MSC_VER
-#include <intrin.h>
-inline int BitCount(const int a) {
-	return __popcnt(a);
-};
-inline int BitCount64(const uint64_t a) {
-	return __popcnt64(a);
-};
-inline int CLZ64(const uint64_t a) {
-	return __lzcnt64(a);
-};
-inline int CTZ64(const uint64_t a) {
-	unsigned long b;
-	const auto c = _BitScanForward64(&b, a);
-	return c ? 63 - b : 64;
-};
-#endif
 
-#ifdef __GNUC__
-#define BitCount __builtin_popcount 
-#define BitCount64 __builtin_popcountll
-#endif
 
 /* a=target variable, b=bit number to act upon 0-n */
 #define BIT_SET(a,b) ((a) |= (1ULL<<(b)))

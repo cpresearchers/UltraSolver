@@ -1,11 +1,11 @@
 ﻿//#pragma once
-//#include "PVar.h"
+//#include "PSearchHelper.h"
 //
 //namespace cp {
 //using namespace std;
 //class SafeSimpleBitVar :public PVar {
 //public:
-//	SafeSimpleBitVar(string& name, const int id, const int num_vars, vector<int>& values, shared_ptr<SearchHelper>&& helper);
+//	SafeSimpleBitVar(string& name, const int id, const int num_vars, vector<int>& values, shared_ptr<PSearchHelper>&& helper);
 //	int NewLevel() override;
 //	int BackLevel() override;
 //	int Size() override;
