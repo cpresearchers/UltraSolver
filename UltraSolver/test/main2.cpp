@@ -62,7 +62,7 @@
 using Closure = std::function<void()>;
 using namespace std;
 
-tf::Taskflow taskflow(2);
+tf::Taskflow taskflow(5);
 void xixixi() {
 	cout << "xixixi" << endl;
 }
@@ -71,22 +71,33 @@ public:
 	string xixi;
 	A() { cout << "kaka1" << endl; };
 	A(string& xi) :xixi(xi) { cout << "kaka2 " << xi << endl; }
-	void operator()() const { cout << xixi; }
+	//void operator()() const { cout << xixi; }
+	void operator()(tf::SubflowBuilder& subflow) const {
+		this_thread::sleep_for(chrono::milliseconds(1000));
+		const string  aa = xixi + "inner";
+		cout << xixi << endl;
+		this_thread::sleep_for(chrono::milliseconds(1000));
+		subflow.emplace([aa]() {
+			this_thread::sleep_for(chrono::milliseconds(1000));
+			const string  bb = aa + "inner";
+			cout << bb << endl;
+						});
+	}
 	void show() const { cout << xixi; }
 };
 int main() {
-	string a1 = "xixi\n";
-	string b1 = "haha\n";
-	string c1 = "hehe\n";
-	string d1 = "hoho\n";
+	string a1 = "xixi";
+	string b1 = "haha";
+	string c1 = "hehe";
+	string d1 = "hoho";
 	A a(a1);
 	A b(b1);
 
 	shared_ptr<A> c = make_shared <A>(c1);
 	shared_ptr<A> d = make_shared <A>(d1);
-	taskflow.silent_dispatch(a);
-	cout << "--" << endl;
-	taskflow.silent_dispatch(b);
+	//taskflow.silent_dispatch(a);
+	//cout << "--" << endl;
+	//taskflow.silent_dispatch(b);
 	//a();
 	//b();
 	//a();
@@ -105,13 +116,10 @@ int main() {
 
 	////taskflow2.wait_for_all();
 	//taskflow.emplace(a);
-
-	//taskflow.emplace(b);
-	//taskflow.emplace(a);
-	//taskflow.emplace(b);
-	//taskflow.emplace(a);
-	//taskflow.emplace(b);
-	//taskflow.wait_for_all();
+	cout << "--" << endl;
+	taskflow.emplace(a);
+	taskflow.emplace(b);
+	taskflow.wait_for_all();
 	////bb = taskflow.emplace(b);	aa = taskflow.emplace(a);
 	////bb = taskflow.emplace(b);
 	////bb = taskflow.emplace(b);	aa = taskflow.emplace(a);
