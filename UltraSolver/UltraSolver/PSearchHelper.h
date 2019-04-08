@@ -36,20 +36,22 @@ public:
 
 	vector<vector<PPropagator*>> subscription;
 
-	//tf::Taskflow pool;
+	tf::Taskflow pool;
 	//unique_ptr<tf::WorkStealingThreadpool<PPropagator*>>  pool;
 
-	tf::WorkStealingThreadpool<Closure> pool;
+	//tf::WorkStealingThreadpool<Closure> pool;
+	//unique_ptr<tf::Taskflow> pool;
 	vector<atomic<int>> in_pool;
 
 	PSearchHelper(HModel& m, const int parallelism) :
 		tab_stamp(vector<u64>(m.tabs.size(), 0)),
 		var_stamp(vector<u64>(m.vars.size(), 0)),
-		subscription(vector<vector<PPropagator*>>(m.vars.size())), pool(parallelism),
+		subscription(vector<vector<PPropagator*>>(m.vars.size())),
 		//pool(parallelism),
 		//pool(tf::Taskflow(parallelism)),
-		//pool(5),
+		pool(tf::Taskflow(parallelism)),
 		in_pool(vector<atomic<int>>(m.vars.size())) {
+		//pool.reset(new tf::Taskflow(parallelism));
 		//tf::Taskflow t;
 		//tf::WorkStealingThreadpool<Propagator> pool2(5);
 
