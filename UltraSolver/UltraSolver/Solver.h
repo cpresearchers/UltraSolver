@@ -20,12 +20,12 @@ public:
 	HModel* m;
 
 	Solver(HModel& m, string& propagator_type, string& var_type, string& heu_type) :
-		propagator_type_(propagator_type),
-		var_type_(var_type),
-		heu_type_(heu_type),
 		num_vars(m.vars.size()),
 		num_tabs(m.tabs.size()),
-		m(&m) {
+		m(&m),
+		propagator_type_(propagator_type),
+		var_type_(var_type),
+		heu_type_(heu_type) {
 		I.Initial(num_vars);
 		//helper.Initial(m);
 		helper.reset(new SearchHelper(m));

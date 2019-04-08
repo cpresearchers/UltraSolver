@@ -30,5 +30,14 @@
     <ClCompile Include="dynamic_traversal.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="taskflow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dispatch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="subflow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

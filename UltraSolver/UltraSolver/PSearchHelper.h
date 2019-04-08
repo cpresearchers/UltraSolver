@@ -7,7 +7,6 @@
 #include "HModel.h"
 #include "RSBitSet.h"
 #include "AssignedStack.h"
-#include "PVar.h"
 
 
 namespace cp {
@@ -102,10 +101,13 @@ protected:
 
 class PSearchHelper {
 public:
+	int num_vars;
+	int num_tabs;
 	// 各时间戳
 	u64 global_stamp = 0;
-	vector<u64> tab_stamp;
 	vector<u64> var_stamp;
+	vector<u64> tab_stamp;
+
 	// 搜索时间
 	u64 time = 0;
 	u64 nodes = 0;
@@ -122,6 +124,8 @@ public:
 	// 约束传播次数
 	u64 c_sum = 0;
 
+	u64 num_pro = 0;
+
 	vector<vector<PPropagator*>> subscription;
 
 	tf::Taskflow pool;
@@ -132,8 +136,10 @@ public:
 	vector<atomic<int>> in_pool;
 
 	PSearchHelper(HModel& m, const int parallelism) :
-		tab_stamp(vector<u64>(m.tabs.size(), 0)),
-		var_stamp(vector<u64>(m.vars.size(), 0)),
+		num_vars(m.vars.size()),
+		num_tabs(m.tabs.size()),
+		var_stamp(vector<u64>(num_vars, 0)),
+		tab_stamp(vector<u64>(num_tabs, 0)),
 		//subscription(vector<vector<PPropagator*>>(m.vars.size())),
 		//pool(parallelism),
 		//pool(tf::Taskflow(parallelism)),
@@ -144,6 +150,33 @@ public:
 		//tf::WorkStealingThreadpool<Propagator> pool2(5);
 
 		//pool.reset();
+	}
+
+	bool InPool(PPropagator* c) {
+		return !(!in_pool[c->Id()].load());
+	}
+
+	bool InPool(const int cid) {
+		return !(!in_pool[cid].load());
+	}
+
+	void AddToPool(PPropagator* c) {
+		if (InPool(c->Id())) {
+			pool.emplace(std::move(*c));
+			in_pool[c->Id()].store(1);
+			++num_pro;
+		}
+	}
+
+	void ClearPool() {
+		num_pro = 0;
+		for (int i = 0; i < num_tabs; ++i) {
+			in_pool[i].store(0);
+		}
+	}
+
+	void WaitForAll() {
+		pool.wait_for_all();
 	}
 };
 

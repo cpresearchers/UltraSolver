@@ -196,6 +196,7 @@ PSolver::PSolver(HModel& m, string& propagator_type, string& var_type, string& h
 	num_tabs(m.tabs.size()),
 	m(&m) {
 	I.Initial(num_vars);
+	Y_evt.reserve(num_vars);
 	//helper.Initial(m);
 	helper.reset(new PSearchHelper(m, parallelism));
 	level_V_dense_.resize(num_vars, 0);

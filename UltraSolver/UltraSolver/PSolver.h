@@ -47,5 +47,6 @@ protected:
 	string& propagator_type_;
 	string& var_type_;
 	string& heu_type_;
+	vector<PVar*> Y_evt;
 };
 }

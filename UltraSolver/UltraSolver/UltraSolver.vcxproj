@@ -23,6 +23,7 @@
     <ClInclude Include="BitSet.h" />
     <ClInclude Include="CoarseQueue.h" />
     <ClInclude Include="CoarseSolver.h" />
+    <ClInclude Include="PCoarseSolver.h" />
     <ClInclude Include="Propagator.h" />
     <ClInclude Include="PSearchHelper.h" />
     <ClInclude Include="PSolver.h" />
@@ -40,6 +41,7 @@
   <ItemGroup>
     <ClCompile Include="BitSet.cpp" />
     <ClCompile Include="CoarseSolver.cpp" />
+    <ClCompile Include="PCoarseSolver.cpp" />
     <ClCompile Include="PSolver.cpp" />
     <ClCompile Include="SafeSimpleBitVar.cpp" />
     <ClCompile Include="SimpleBitVar.cpp" />
