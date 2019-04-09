@@ -187,6 +187,7 @@ public:
 	virtual bool CheckConsistencyAfterRefutation(vector<Var*>& x_evt) = 0;
 
 	virtual ~Solver() {
+		//cout << "delete solver!" << endl;
 		for (size_t i = 0; i < num_vars; i++) {
 			delete vars[i];
 		}

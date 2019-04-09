@@ -214,8 +214,10 @@ void PSolver::Search(int64_t time_limit) {
 	x_evt.clear();
 
 	const u64 start = t.elapsed();
+	//show();
+	//cout << "InitialPropagate" << endl;
 	bool consistent = InitialPropagate();
-
+	//show();
 	if (!consistent) {
 		finished = false;
 		helper->time = t.elapsed() - start;
@@ -237,9 +239,11 @@ void PSolver::Search(int64_t time_limit) {
 		////选出的变量论域大小为1
 		//if (v_a.v->Size() != 1 && consistent) {
 		Bind(v_a);
+		//show();
 		x_evt.push_back(v_a.v);
 		consistent = CheckConsistencyAfterAssignment(x_evt);
 		x_evt.clear();
+		//show();
 		//}
 
 		if (consistent && I.full()) {
@@ -256,10 +260,11 @@ void PSolver::Search(int64_t time_limit) {
 			BackLevel();
 			//选出的变量论域大小不为1
 			Remove(v_a);
-
+			//show();
 			x_evt.push_back(v_a.v);
 			consistent = CheckConsistencyAfterRefutation(x_evt);
 			x_evt.clear();
+			//show();
 		}
 
 		if (!consistent) {

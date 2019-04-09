@@ -116,7 +116,7 @@ bool TablePCT::FilterDomains() {
 				else {
 					deleted = true;
 					//无法找到支持, 删除(v, a)
-					//cout << "name: " << Id() << ", delete: " << v->Id() << "," << a << endl;
+					//cout << "id: " << Id() << ", delete: " << v->Id() << "," << a << endl;
 					//v->Remove(a);
 					last_mask_[vv] &= Constants::MASK0[a];
 					//BIT_CLEAR(last_mask_[vv], a);
@@ -141,8 +141,11 @@ bool TablePCT::FilterDomains() {
 }
 
 bool TablePCT::propagate() {
+	//cout << "propagate, id: " << Id() << endl;
 	//L32~L33
-	InitGAC();
+	if (!InitGAC()) {
+		return true;
+	}
 	if (!UpdateTable()) {
 		return false;
 	}
@@ -163,10 +166,9 @@ void TablePCT::BackLevel() {
 	}
 }
 
-void TablePCT::operator()() {
-	if (helper->is_consistent)
-		propagate();
-}
-
+//void TablePCT::operator()() {
+//	if (helper->is_consistent)
+//		propagate();
+//}
 
 }

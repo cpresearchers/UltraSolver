@@ -24,7 +24,7 @@ public:
 
 	void BackLevel() override;
 
-	void operator()();
+	//void operator()() override;
 
 private:
 	int num_bit_;

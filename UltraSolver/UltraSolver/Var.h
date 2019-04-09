@@ -4,24 +4,16 @@
 #include "typedef.h"
 #include <string>
 #include <memory>
-
+#include <iostream>
 using namespace std;
 namespace cp {
 class SearchHelper;
 
 class Var {
 public:
-	virtual ~Var() = default;
-	//Var(string& name, const int id, const int num_vars, vector<int>& vals,
-	//	SearchHelper& helper) :
-	//	helper(&helper),
-	//	name_(name),
-	//	id_(id),
-	//	num_vars_(num_vars),
-	//	vals_(vals),
-	//	capacity_(vals.size()) {};
+	virtual ~Var() {};
 	Var(string& name, const int id, const int num_vars, vector<int>& vals,
-	    shared_ptr<SearchHelper>&& helper) :
+		shared_ptr<SearchHelper>&& helper) :
 		helper(helper),
 		name_(name),
 		id_(id),
@@ -29,7 +21,6 @@ public:
 		vals_(vals),
 		capacity_(vals.size()) {}
 
-	//Var(const string& cs, int id, const int num_vars, const vector<int>& is, const shared_ptr<SearchHelper>& helper);;
 	int Id() const { return id_; }
 	int Capacity() const { return capacity_; }
 
@@ -137,15 +128,8 @@ public:
 	vector<int> dense;
 	vector<int> sparse;
 	vector<int> size_level;
-
 	int mark = 0;
 
-	//vector<int> last_remove_values;
-	//vector<int> valid_values;
-
-	SearchHelper* helper{};
-
-	//SparseSetVar(string& name, const int id, const int num_vars, vector<int>& vals, SearchHelper& helper);
 	SparseSetVar(string& name, const int id, const int num_vars, vector<int>& vals, shared_ptr<SearchHelper>&& helper);
 
 	int NewLevel() override;

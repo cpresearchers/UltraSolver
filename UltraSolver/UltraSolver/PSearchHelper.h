@@ -86,12 +86,11 @@ public:
 	int num_assigned = 0;
 	int num_vars = 0;
 	vector<PVar*> scope;
-	//SearchHelper* helper;
 	const shared_ptr<PSearchHelper> helper;
 	virtual bool propagate() = 0;
 	virtual void NewLevel() = 0;
 	virtual void BackLevel() = 0;
-
+	//virtual void operator()() = 0;
 protected:
 	// last remove values and valid values
 	vector<int> values_;
@@ -140,17 +139,27 @@ public:
 		num_tabs(m.tabs.size()),
 		var_stamp(vector<u64>(num_vars, 0)),
 		tab_stamp(vector<u64>(num_tabs, 0)),
-		//subscription(vector<vector<PPropagator*>>(m.vars.size())),
+		subscription(vector<vector<PPropagator*>>(m.vars.size())),
 		//pool(parallelism),
 		//pool(tf::Taskflow(parallelism)),
 		pool(tf::Taskflow(parallelism)),
-		in_pool(vector<atomic<int>>(m.vars.size())) {
+		in_pool(vector<atomic<int>>(num_tabs)) {
 		//pool.reset(new tf::Taskflow(parallelism));
 		//tf::Taskflow t;
 		//tf::WorkStealingThreadpool<Propagator> pool2(5);
 
 		//pool.reset();
+
 	}
+
+	void run(PPropagator* c) const {
+		if (is_consistent)
+			c->propagate();
+	}
+
+	//void run(PPropagator* c, tf::SubflowBuilder subflow) {
+
+	//}
 
 	bool InPool(PPropagator* c) {
 		return !(!in_pool[c->Id()].load());
@@ -161,8 +170,9 @@ public:
 	}
 
 	void AddToPool(PPropagator* c) {
-		if (InPool(c->Id())) {
-			pool.emplace(std::move(*c));
+		if (!InPool(c->Id())) {
+			//pool.emplace(std::move(*c));
+			pool.emplace([c, this]() {run(c); });
 			in_pool[c->Id()].store(1);
 			++num_pro;
 		}

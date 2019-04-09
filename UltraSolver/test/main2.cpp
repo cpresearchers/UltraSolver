@@ -63,63 +63,116 @@ using Closure = std::function<void()>;
 using namespace std;
 
 tf::Taskflow taskflow(5);
+tf::Taskflow tfw;
+
 void xixixi() {
 	cout << "xixixi" << endl;
 }
 class A {
 public:
-	string xixi;
-	A() { cout << "kaka1" << endl; };
-	A(string& xi) :xixi(xi) { cout << "kaka2 " << xi << endl; }
-	//void operator()() const { cout << xixi; }
-	void operator()(tf::SubflowBuilder& subflow) const {
-		this_thread::sleep_for(chrono::milliseconds(1000));
-		const string  aa = xixi + "inner";
-		cout << xixi << endl;
-		this_thread::sleep_for(chrono::milliseconds(1000));
-		subflow.emplace([aa]() {
-			this_thread::sleep_for(chrono::milliseconds(1000));
-			const string  bb = aa + "inner";
-			cout << bb << endl;
-						});
-	}
-	void show() const { cout << xixi; }
+	string ss;
+	A() { cout << "kaka1" << endl; }
+	A(string& xi) :ss(xi) { cout << "kaka2 " << xi << endl; }
+	//virtual void operator()() { cout << "father A" << endl; };
+	//virtual void operator()() = 0;
+	virtual void operator()(tf::SubflowBuilder& subflow) = 0;
+	//virtual void operator()() =;
+	//void operator()(tf::SubflowBuilder& subflow) const {
+	//	this_thread::sleep_for(chrono::milliseconds(1000));
+	//	const string  aa = ss + "inner";
+	//	cout << ss << endl;
+	//	subflow.emplace([aa]() {
+	//		this_thread::sleep_for(chrono::milliseconds(1000));
+	//		const string  bb = aa + "inner";
+	//		cout << bb << endl;
+	//					});
+	//}
+	void show() const { cout << ss; }
 };
+
+class B final : public A {
+public:
+	//void operator()() override {
+	//	cout << "overwrite A" << endl;
+	//}
+
+
+	B(string& cs) :A(cs) {
+		cout << "overwrite constructor" << endl;
+	}
+
+	void operator()(tf::SubflowBuilder& subflow) override {
+		this_thread::sleep_for(chrono::milliseconds(1000));
+		cout << ss << endl;
+		auto aa = ss;
+		subflow.emplace([aa]() {
+			//aa = aa + "sub";
+			this_thread::sleep_for(chrono::milliseconds(1000));
+			cout << "sub" << aa << endl;
+						}
+		);
+	}
+};
+
+
+//void tata(A* a) {
+//	(*a)();
+//}
+
+
+void tata(A* a, tf::SubflowBuilder& subflow) {
+	(*a)(subflow);
+}
+
+void coco(A* a) {
+	tfw.emplace([a](auto & subflow) {tata(a, subflow); });
+	//tfw.emplace(*(dynamic_cast<B*>(a)));
+}
+
+void cocob(B* a) {
+	tfw.emplace(*a);
+}
+
 int main() {
 	string a1 = "xixi";
 	string b1 = "haha";
 	string c1 = "hehe";
 	string d1 = "hoho";
-	A a(a1);
-	A b(b1);
+	string e1 = "koko";
 
-	shared_ptr<A> c = make_shared <A>(c1);
-	shared_ptr<A> d = make_shared <A>(d1);
-	//taskflow.silent_dispatch(a);
+	//A a(a1);
+	//A b(b1);
+	//shared_ptr<A> c = make_shared <A>(c1);
+	//shared_ptr<A> d = make_shared <A>(d1);
+	//A* e = new A(e1);
+
+	////taskflow.silent_dispatch(a);
+	////cout << "--" << endl;
+	////taskflow.silent_dispatch(b);
+	////a();
+	////b();
+	////a();
+	////cout << "---" << endl;
+	////tf::Taskflow taskflow(2);
+	////auto f = [a] {a(); };
+	////f();
+	////cout << "---" << endl;
+	//////taskflow.emplace(f());
+	//////taskflow.emplace([b](A & x) {x(); });
+	////auto bb = taskflow.emplace(b);
+	////taskflow.emplace(std::move(*c));
+	////taskflow.wait_for_all();
+	//////tf::Taskflow taskflow2(1);
+	//////taskflow2.emplace(std::move(a));
+
+	//////taskflow2.wait_for_all();
+	////taskflow.emplace(a);
 	//cout << "--" << endl;
-	//taskflow.silent_dispatch(b);
-	//a();
-	//b();
-	//a();
-	//cout << "---" << endl;
-	//tf::Taskflow taskflow(2);
-	//auto f = [a] {a(); };
-	//f();
-	//cout << "---" << endl;
-	////taskflow.emplace(f());
-	////taskflow.emplace([b](A & x) {x(); });
-	//auto bb = taskflow.emplace(b);
-	//taskflow.emplace(std::move(*c));
-	//taskflow.wait_for_all();
-	////tf::Taskflow taskflow2(1);
-	////taskflow2.emplace(std::move(a));
-
-	////taskflow2.wait_for_all();
 	//taskflow.emplace(a);
-	cout << "--" << endl;
-	taskflow.emplace(a);
-	taskflow.emplace(b);
-	taskflow.wait_for_all();
+	//taskflow.emplace(b);
+	//coco(e);
+	//tfw.wait_for_all();
+	//taskflow.wait_for_all();
 	////bb = taskflow.emplace(b);	aa = taskflow.emplace(a);
 	////bb = taskflow.emplace(b);
 	////bb = taskflow.emplace(b);	aa = taskflow.emplace(a);
@@ -131,5 +184,20 @@ int main() {
 	//pool.emplace(a);
 	//tf::WorkStealingThreadpool<A> tp(std::thread::hardware_concurrency());
 	//pool
+	//delete e;
+
+	//vector<std::function<void>> pro(5);
+	//taskflow.emplace(pro[1]);
+
+
+	B a(a1);
+	B b(b1);
+	//tata(&a);
+	coco(&a);
+	coco(&b);
+	//tfw.emplace(a);
+	tfw.wait_for_all();
+
 	return 0;
 }
+
