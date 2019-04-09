@@ -187,6 +187,7 @@ public:
 
 	void WaitForAll() {
 		pool.wait_for_all();
+		pool.dump();
 	}
 };
 

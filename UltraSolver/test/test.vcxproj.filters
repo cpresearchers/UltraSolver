@@ -15,28 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="threadpool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="threadpool_cxx14.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="dynamic_traversal.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="taskflow.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="dispatch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="subflow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

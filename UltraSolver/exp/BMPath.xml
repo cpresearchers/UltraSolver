@@ -3,7 +3,7 @@
   <BMFiles nbBMFiles = "1">
     <!--<BMFile id ="0">queens-4_ext.xml</BMFile>-->
     <!--<BMFile id ="0">E:/X3Benchmarks/Random-m1-5-10-10/rand-5-10-10-15-08-0.xml</BMFile>-->
-    <!--<BMFile id ="0">E:/Projects/benchmarks/xcsp/LatinSquare-xcsp2-qcp10/qcp-10-67-00_X2.xml</BMFile>-->
+    <BMFile id ="0">E:/X3Benchmarks/QRandom-bdd-18-21-2/bdd-18-21-2-133-78-08.xml</BMFile>
     <!--<BMFile id ="0">E:/Projects/benchmarks/xcsp/QueenAttacking-xcsp2-s1/QueenAttacking-06_X2.xml</BMFile>-->
     <!--<BMFile id ="0">E:/Projects/benchmarks/xcsp/Random-RB-2-30-15f/rand-2-30-15-306-230f-01.xml</BMFile>-->
     <!--<BMFile id ="0">E:/Projects/benchmarks/xcsp/QueensKnights-m1-s1/QueensKnights-008-05-add.xml</BMFile>-->
@@ -11,6 +11,6 @@
     <!-- <BMFile id ="0">/home/leezear/benchmarks/Random/Random-B-2-23-23/rand-2-23-23-253-131-0.xml</BMFile> -->
     <!--<BMFile id ="0">queen4.xml</BMFile>-->
     <!--<BMFile id ="0">queen12.xml</BMFile>-->
-    <BMFile id ="0">rand-5-12-12-200-12442-01.xml</BMFile>
+    <!--<BMFile id ="0">rand-5-12-12-200-12442-01.xml</BMFile>-->
   </BMFiles>
 </BenchMark>
