@@ -238,10 +238,10 @@ public:
 
 	PSearchHelper(HModel& m, const int parallelism);
 
-	void run(PPropagator* c) const {
-		if (is_consistent)
-			c->propagate();
-	}
+	//void run(PPropagator* c) const {
+	//	if (is_consistent)
+	//		c->propagate();
+	//}
 
 	void init_tasks(vector<PPropagator*>& pp);
 
@@ -253,9 +253,7 @@ public:
 
 	bool InPool(const int cid);
 
-	void Emplace(const int cid) {
-
-	}
+	void Emplace(const int cid);
 
 	//void AddToPool(PPropagator* c) {
 	//	if (!InPool(c->Id())) {
@@ -283,9 +281,9 @@ public:
 
 	//}
 
-	//void WaitForAll() {
-	//	pool.wait_for_all();
-	//}
+	void WaitForAll() {
+		fut.get();
+	}
 };
 
 class PVal {

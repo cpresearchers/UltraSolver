@@ -13,9 +13,6 @@ PSearchHelper::PSearchHelper(HModel& m, const int parallelism) :
 	in_pool(vector<int>(num_tabs, 0)) {}
 
 void PSearchHelper::init_tasks(vector<PPropagator*>& pp) {
-	//auto& prom = this->prom;
-	//auto& counter = this->counter;
-	//auto& flag = this->flag;
 	for (size_t i = 0; i < num_tabs; i++) {
 		tasks[i] = [this, &pp, i] {
 			if (is_consistent) {
@@ -35,5 +32,15 @@ bool PSearchHelper::InPool(PPropagator* c) {
 
 bool PSearchHelper::InPool(const int cid) {
 	return !(!in_pool[cid]);
+}
+
+void PSearchHelper::Emplace(const int cid)
+{
+	if (!InPool(cid))
+	{
+		pool->emplace(std::move(tasks[cid]));
+		in_pool[cid] = 1;
+		++num_pro;
+	}
 }
 }
