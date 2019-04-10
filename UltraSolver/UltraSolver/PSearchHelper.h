@@ -98,6 +98,106 @@ protected:
 
 };
 
+using Closure = std::function<void()>;
+//
+//class PSearchHelper {
+//public:
+//	int num_vars;
+//	int num_tabs;
+//	// 各时间戳
+//	u64 global_stamp = 0;
+//	vector<u64> var_stamp;
+//	vector<u64> tab_stamp;
+//
+//	// 搜索时间
+//	u64 time = 0;
+//	u64 nodes = 0;
+//	bool is_consistent = true;
+//	// 搜索上限
+//	u64 time_limit = 0;
+//	u64 node_limit = 0;
+//	u64 failure_limit = 0;
+//
+//	int level = 0;
+//
+//	// 线程启动次数
+//	u64 p_sum = 0;
+//	// 约束传播次数
+//	u64 c_sum = 0;
+//
+//	u64 num_pro = 0;
+//
+//	vector<vector<PPropagator*>> subscription;
+//	vector<Closure> initial_tasks;
+//	vector<vector<Closure>> srp_tasks;
+//
+//	//tf::Taskflow pool;
+//	unique_ptr<tf::WorkStealingThreadpool<Closure>>  pool;
+//
+//	//tf::WorkStealingThreadpool<Closure> pool;
+//	//unique_ptr<tf::Taskflow> pool;
+//	vector<atomic<int>> in_pool;
+//
+//	PSearchHelper(HModel& m, const int parallelism) :
+//		num_vars(m.vars.size()),
+//		num_tabs(m.tabs.size()),
+//		var_stamp(vector<u64>(num_vars, 0)),
+//		tab_stamp(vector<u64>(num_tabs, 0)),
+//		subscription(vector<vector<PPropagator*>>(m.vars.size())),
+//		initial_tasks(vector<Closure>(m.tabs.size())),
+//		srp_tasks(vector<vector<Closure>>(m.vars.size())),
+//		//pool(parallelism),
+//		//pool(tf::Taskflow(parallelism)),
+//		pool(make_unique<tf::WorkStealingThreadpool<Closure>>(parallelism)),
+//		in_pool(vector<atomic<int>>(num_tabs)) {
+//		//pool.reset(new tf::Taskflow(parallelism));
+//		//tf::Taskflow t;
+//		//tf::WorkStealingThreadpool<Propagator> pool2(5);
+//
+//		//pool.reset();
+//
+//	}
+//
+//	void run(PPropagator* c) const {
+//		if (is_consistent)
+//			c->propagate();
+//	}
+//
+//	//void run(PPropagator* c, tf::SubflowBuilder subflow) {
+//
+//	//}
+//
+//	bool InPool(PPropagator* c) {
+//		return !(!in_pool[c->Id()].load());
+//	}
+//
+//	bool InPool(const int cid) {
+//		return !(!in_pool[cid].load());
+//	}
+//
+//	void AddToPool(PPropagator* c) {
+//		if (!InPool(c->Id())) {
+//			//pool.emplace(std::move(*c));
+//			pool.emplace([c, this]() {run(c); });
+//			in_pool[c->Id()].store(1);
+//			++num_pro;
+//		}
+//	}
+//
+//	void ClearPool() {
+//		num_pro = 0;
+//		for (int i = 0; i < num_tabs; ++i) {
+//			in_pool[i].store(0);
+//		}
+//	}
+//
+//	void WaitForAll() {
+//		pool.wait_for_all();
+//	}
+//};
+
+
+
 class PSearchHelper {
 public:
 	int num_vars;
@@ -126,69 +226,66 @@ public:
 	u64 num_pro = 0;
 
 	vector<vector<PPropagator*>> subscription;
+	vector<Closure> tasks;
+	//vector<vector<Closure>> srp_tasks;
 
-	tf::Taskflow pool;
-	//unique_ptr<tf::WorkStealingThreadpool<PPropagator*>>  pool;
+	unique_ptr<tf::WorkStealingThreadpool<Closure>>  pool;
+	vector<int> in_pool;
+	promise<void> prom;
+	future<void> fut = prom.get_future();
+	atomic<u64> counter;
+	bool flag = false;
 
-	//tf::WorkStealingThreadpool<Closure> pool;
-	//unique_ptr<tf::Taskflow> pool;
-	vector<atomic<int>> in_pool;
-
-	PSearchHelper(HModel& m, const int parallelism) :
-		num_vars(m.vars.size()),
-		num_tabs(m.tabs.size()),
-		var_stamp(vector<u64>(num_vars, 0)),
-		tab_stamp(vector<u64>(num_tabs, 0)),
-		subscription(vector<vector<PPropagator*>>(m.vars.size())),
-		//pool(parallelism),
-		//pool(tf::Taskflow(parallelism)),
-		pool(tf::Taskflow(parallelism)),
-		in_pool(vector<atomic<int>>(num_tabs)) {
-		//pool.reset(new tf::Taskflow(parallelism));
-		//tf::Taskflow t;
-		//tf::WorkStealingThreadpool<Propagator> pool2(5);
-
-		//pool.reset();
-
-	}
+	PSearchHelper(HModel& m, const int parallelism);
 
 	void run(PPropagator* c) const {
 		if (is_consistent)
 			c->propagate();
 	}
 
+	void init_tasks(vector<PPropagator*>& pp);
+
 	//void run(PPropagator* c, tf::SubflowBuilder subflow) {
 
 	//}
 
-	bool InPool(PPropagator* c) {
-		return !(!in_pool[c->Id()].load());
+	bool InPool(PPropagator* c);
+
+	bool InPool(const int cid);
+
+	void Emplace(const int cid) {
+
 	}
 
-	bool InPool(const int cid) {
-		return !(!in_pool[cid].load());
-	}
+	//void AddToPool(PPropagator* c) {
+	//	if (!InPool(c->Id())) {
+	//		//pool.emplace(std::move(*c));
+	//		pool.emplace([c, this]() {run(c); });
+	//		pool->batch()
+	//		in_pool[c->Id()].store(1);
+	//		++num_pro;
+	//	}
+	//}
 
-	void AddToPool(PPropagator* c) {
-		if (!InPool(c->Id())) {
-			//pool.emplace(std::move(*c));
-			pool.emplace([c, this]() {run(c); });
-			in_pool[c->Id()].store(1);
-			++num_pro;
-		}
-	}
+	//void ClearPool() {
+	//	num_pro = 0;
+	//	for (int i = 0; i < num_tabs; ++i) {
+	//		in_pool[i].store(0);
+	//	}
+	//}
 
-	void ClearPool() {
-		num_pro = 0;
-		for (int i = 0; i < num_tabs; ++i) {
-			in_pool[i].store(0);
-		}
-	}
+	//void WaitForAll() {
+	//	pool.wait_for_all();
+	//}
 
-	void WaitForAll() {
-		pool.wait_for_all();
-		pool.dump();
-	}
+	//void InvokeAll(const int vid) {
+	//	pool->batch(std::move(srp_tasks[vid]));
+
+	//}
+
+	//void WaitForAll() {
+	//	pool.wait_for_all();
+	//}
 };
 
 class PVal {

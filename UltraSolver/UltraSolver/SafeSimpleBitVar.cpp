@@ -1,7 +1,8 @@
 ﻿#include "PSearchHelper.h"
 
 namespace cp {
-SafeSimpleBitVar::SafeSimpleBitVar(string& name, const int id, const int num_vars, vector<int>& values,
+	
+	SafeSimpleBitVar::SafeSimpleBitVar(string& name, const int id, const int num_vars, vector<int>& values,
 								   shared_ptr<PSearchHelper>&& helper) :
 	PVar(name, id, num_vars, values, std::move(helper)),
 	limit_(capacity_),

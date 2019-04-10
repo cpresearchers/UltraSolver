@@ -22,6 +22,9 @@ PCoarseSolver::PCoarseSolver(HModel& hm, string& propagator_type, string& var_ty
 
 			tabs.emplace_back(new TablePCT(xc->id, xc->scope.size(), num_vars, scope, xc->tuples, std::move(helper)));
 
+
+
+
 			for (auto v : scope) {
 				helper->subscription[v->Id()].push_back(tabs[i]);
 			}

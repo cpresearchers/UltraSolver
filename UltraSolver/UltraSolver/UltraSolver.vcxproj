@@ -42,6 +42,7 @@
     <ClCompile Include="BitSet.cpp" />
     <ClCompile Include="CoarseSolver.cpp" />
     <ClCompile Include="PCoarseSolver.cpp" />
+    <ClCompile Include="PSearchHelper.cpp" />
     <ClCompile Include="PSolver.cpp" />
     <ClCompile Include="SafeSimpleBitVar.cpp" />
     <ClCompile Include="SimpleBitVar.cpp" />
