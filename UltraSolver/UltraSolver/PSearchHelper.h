@@ -265,12 +265,12 @@ public:
 	//	}
 	//}
 
-	//void ClearPool() {
-	//	num_pro = 0;
-	//	for (int i = 0; i < num_tabs; ++i) {
-	//		in_pool[i].store(0);
-	//	}
-	//}
+	void ClearPool() {
+		//num_pro = 0;
+		for (int i = 0; i < num_tabs; ++i) {
+			in_pool[i].store(0);
+		}
+	}
 
 	//void WaitForAll() {
 	//	pool.wait_for_all();

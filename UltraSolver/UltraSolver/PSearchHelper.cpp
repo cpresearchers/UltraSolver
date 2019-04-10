@@ -38,6 +38,7 @@ void PSearchHelper::Emplace(const int cid)
 {
 	if (!InPool(cid))
 	{
+		++counter;
 		pool->emplace(std::move(tasks[cid]));
 		in_pool[cid] = 1;
 		++num_pro;
